@@ -27,7 +27,7 @@ export default function Product() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/products");
+        const res = await axios.get("https://brightique.onrender.com/products");
         setProducts(res.data);
       } catch (err) {
         console.error(err);
@@ -51,7 +51,7 @@ export default function Product() {
     };
 
     try {
-      const res = await axios.post("http://localhost:5000/products", productToAdd);
+      const res = await axios.post("https://brightique.onrender.com/products", productToAdd);
       setProducts([res.data,...products]);
       setShowAddModal(false);
       setNewProduct({ name: "", category: "", price: "", stock: 0, image: "" });
@@ -64,7 +64,7 @@ export default function Product() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
     try {
-      await axios.delete(`http://localhost:5000/products/${id}`);
+      await axios.delete(`https://brightique.onrender.com/products/${id}`);
       setProducts(products.filter((p) => p.id !== id));
     } catch (err) {
       console.error(err);
@@ -85,7 +85,7 @@ export default function Product() {
     }
 
     try {
-      const res = await axios.patch(`http://localhost:5000/products/${editProduct.id}`, {
+      const res = await axios.patch(`https://brightique.onrender.com/products/${editProduct.id}`, {
         name: editProduct.name,
         category: editProduct.category,
         price: editProduct.price,

@@ -30,7 +30,7 @@ export default function ProductCard() {
       setProduct(existing);
     } else {
       axios
-        .get(`http://localhost:5000/products/${id}`)
+        .get(`https://brightique.onrender.com/products/${id}`)
         .catch((err) => console.error(err));
     }                                 
   }, [id, shopProducts]);

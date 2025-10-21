@@ -16,7 +16,7 @@ export const ShopProvider = ({ children }) => {
   
   const fetchProducts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/products');
+      const res = await axios.get('https://brightique.onrender.com/products');
       // const normalized = res.data.map((p) => ({
       //   ...p,
       //   stock: p.stock != null ? p.stock : p.quantity ?? 0,
@@ -48,12 +48,12 @@ export const ShopProvider = ({ children }) => {
     try {
       if (user.role === "admin") {
         // Admin: fetch all users and collect all orders
-        const res = await axios.get("http://localhost:5000/users");
+        const res = await axios.get("https://brightique.onrender.com/users");
         const allOrders = res.data.flatMap(u => u.orders || []);
         setOrders(allOrders);
       } else {
         // Normal user: fetch only their orders
-        const res = await axios.get(`http://localhost:5000/users/${user.id}`);
+        const res = await axios.get(`https://brightique.onrender.com/${user.id}`);
         setOrders(res.data.orders || []);
       }
     } catch (err) {
@@ -69,7 +69,7 @@ export const ShopProvider = ({ children }) => {
     const loadUserData = async () => {
       if (user) {
         try {
-          const res = await axios.get(`http://localhost:5000/users/${user.id}`);
+          const res = await axios.get(`https://brightique.onrender.com/users/${user.id}`);
           setWishlist(res.data.wishlist || []);
           setCart(res.data.cart || []);
           setOrders(res.data.orders || []); 
@@ -85,7 +85,7 @@ export const ShopProvider = ({ children }) => {
   const saveUserData = async (updatedFields) => {
     if (!user) return;
     try {
-      await axios.patch(`http://localhost:5000/users/${user.id}`, updatedFields);
+      await axios.patch(`https://brightique.onrender.com/users/${user.id}`, updatedFields);
     } catch (err) {
       console.error("Failed saving user data", err);
     }
@@ -100,11 +100,11 @@ export const ShopProvider = ({ children }) => {
     );
 
     try {
-      const productRes = await axios.get(`http://localhost:5000/products/${productId}`);
+      const productRes = await axios.get(`https://brightique.onrender.com/products/${productId}`);
       const currentStock = productRes.data.stock ?? productRes.data.quantity ?? 0;
       const newStock = Math.max(0, currentStock + change);
 
-      await axios.patch(`http://localhost:5000/products/${productId}`, { stock: newStock });
+      await axios.patch(`https://brightique.onrender.com/products/${productId}`, { stock: newStock });
     } catch (err) {
       console.error("Stock update failed", err);
     }
@@ -215,7 +215,7 @@ export const ShopProvider = ({ children }) => {
   if (!confirmCancel) return;
 
   try {
-    const res = await axios.get(`http://localhost:5000/users/${user.id}`);
+    const res = await axios.get(`https://brightique.onrender.com/${user.id}`);
     const orders = res.data.orders || [];
 
     const updatedOrders = orders.map(order =>
@@ -223,7 +223,7 @@ export const ShopProvider = ({ children }) => {
     );
 
     
-    await axios.patch(`http://localhost:5000/users/${user.id}`, {
+    await axios.patch(`https://brightique.onrender.com/${user.id}`, {
       orders: updatedOrders
     });
 

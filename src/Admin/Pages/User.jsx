@@ -9,7 +9,7 @@ export default function User() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/users");
+        const res = await axios.get("https://brightique.onrender.com/users");
         setUsers(res.data);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -23,7 +23,7 @@ export default function User() {
   
   const handleRoleChange = async (id, newRole) => {
     try {
-      await axios.patch(`http://localhost:5000/users/${id}`, { role: newRole });
+      await axios.patch(`https://brightique.onrender.com/users/${id}`, { role: newRole });
       setUsers((prev) =>
         prev.map((u) => (u.id === id ? { ...u, role: newRole } : u))
       );
@@ -36,7 +36,7 @@ export default function User() {
   const handleStatusChange = async (id, newStatus) => {
     try {
       const isBlocked = newStatus === "Blocked";
-      await axios.patch(`http://localhost:5000/users/${id}`, { isBlocked });
+      await axios.patch(`https://brightique.onrender.com/users/${id}`, { isBlocked });
       setUsers((prev) =>
         prev.map((u) => (u.id === id ? { ...u, isBlocked } : u))
       );

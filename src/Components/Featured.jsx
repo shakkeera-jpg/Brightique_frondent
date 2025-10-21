@@ -8,7 +8,7 @@ export default function Featured() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/Bestseller")
+      .get("https://brightique.onrender.com/Bestseller")
       .then((res) => setProducts(res.data))
       .catch((err) => console.error(err));
   }, []);

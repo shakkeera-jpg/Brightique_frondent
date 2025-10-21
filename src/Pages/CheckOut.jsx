@@ -95,13 +95,13 @@ export default function CheckOut() {
 
     try {
       setLoadingOrder(true);
-      const userRes = await axios.get(`http://localhost:5000/users/${user.id}`);
+      const userRes = await axios.get(`https://brightique.onrender.com/users/${user.id}`);
       const existingUser = userRes.data;
 
       const updatedOrders = [...(existingUser.orders || []), orderData];
 
       const patchRes = await axios.patch(
-        `http://localhost:5000/users/${user.id}`,
+        `https://brightique.onrender.com/users/${user.id}`,
         {
           orders: updatedOrders,
           cart: [],

@@ -13,7 +13,7 @@ export default function OrderConfirmed() {
       try {
         if (!user?.id) return;
 
-        const res = await axios.get(`http://localhost:5000/users/${user.id}`);
+        const res = await axios.get(`https://brightique.onrender.com/users/${user.id}`);
         const userOrders = res.data.orders || [];
         console.log(userOrders);
 

@@ -27,7 +27,7 @@ export default function Login() {
     const result = await login(email, password);
 
     if (result.success) {
-      if (result.user?.isBlocked) {  // extra safety
+      if (result.user?.isBlocked) {  
         alert("You're blocked! Cannot login.");
         return;
       }

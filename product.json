@@ -119,7 +119,7 @@
       "category": "floor lamps",
       "warranty": "2 Years",
       "image": "https://www.whiteteak.com/media/catalog/product/f/l/fl90-10001_10_2_.jpg?optimize=medium&fit=bounds&height=&width=",
-      "stock": 4
+      "stock": 3
     },
     {
       "id": "11",
@@ -305,243 +305,13 @@
       "name": "shakkeera",
       "email": "shakkeera@gmail.com",
       "password": "1234567",
-      "cart": [
-        {
-          "id": "4",
-          "name": "Winter Wonderland (Large, Copper) Crystal Chandelier",
-          "price": 125271,
-          "meterial": "Metal & Glass",
-          "size": "Large",
-          "category": "chandeliers",
-          "warranty": "2 Years",
-          "image": "https://www.whiteteak.com/media/catalog/product/h/l/hl42-10006_1j_.jpg?width=550&height=550&canvas=550,550&optimize=medium&fit=bounds",
-          "stock": 11,
-          "quantity": 1
-        }
-      ],
+      "cart": [],
       "wishlist": [],
       "date": "2025-10-06T04:55:35.354Z",
-      "orders": [
-        {
-          "id": "4vp5xzm",
-          "userId": "8226",
-          "items": [
-            {
-              "id": "18",
-              "name": "Rain Cloud (Extra Large, White, Gold) Marble Table Lamp",
-              "price": 27152,
-              "meterial": "Metal base with fabric lampshade",
-              "size": "medium",
-              "category": "table lamps",
-              "warranty": "2 Years",
-              "image": "/src/assets/products/table-2.webp",
-              "stock": 4,
-              "quantity": 1
-            }
-          ],
-          "customerDetails": {
-            "name": "shakkeera",
-            "phone": "9999999999",
-            "street": "kkj",
-            "city": "ghb",
-            "state": "kerala",
-            "zip": "56878",
-            "country": "mmnm",
-            "paymentMethod": "Cash on Delivery",
-            "upiId": "",
-            "cardNumber": "",
-            "expiry": "",
-            "cvv": "",
-            "bankAccount": ""
-          },
-          "paymentMethod": "Cash on Delivery",
-          "status": "pending",
-          "createdAt": "2025-10-12T14:52:10.227Z"
-        },
-        {
-          "id": "gcwgkpn",
-          "userId": "8226",
-          "items": [
-            {
-              "id": "4",
-              "name": "Winter Wonderland (Large, Copper) Crystal Chandelier",
-              "price": 125271,
-              "meterial": "Metal & Glass",
-              "size": "Large",
-              "category": "chandeliers",
-              "warranty": "2 Years",
-              "image": "/src/assets/products/chandlier-4.webp",
-              "stock": 3,
-              "quantity": 1
-            }
-          ],
-          "customerDetails": {
-            "name": "shakkeera",
-            "phone": "9999999999",
-            "street": "kkj",
-            "city": "ghb",
-            "state": "bbn",
-            "zip": "56878",
-            "country": "mmnm",
-            "paymentMethod": "Cash on Delivery",
-            "upiId": "",
-            "cardNumber": "",
-            "expiry": "",
-            "cvv": "",
-            "bankAccount": ""
-          },
-          "paymentMethod": "Cash on Delivery",
-          "status": "pending",
-          "createdAt": "2025-10-12T17:16:53.177Z"
-        },
-        {
-          "id": "uq40adh",
-          "userId": "8226",
-          "items": [
-            {
-              "id": "18",
-              "name": "Rain Cloud (Extra Large, White, Gold) Marble Table Lamp",
-              "price": 27152,
-              "meterial": "Metal base with fabric lampshade",
-              "size": "medium",
-              "category": "table lamps",
-              "warranty": "2 Years",
-              "image": "/src/assets/products/table-2.webp",
-              "stock": 3,
-              "quantity": 3
-            }
-          ],
-          "customerDetails": {
-            "name": "shakkeera",
-            "phone": "9999999999",
-            "street": "kkj",
-            "city": "ghb",
-            "state": "kerala",
-            "zip": "56878",
-            "country": "mmnm",
-            "paymentMethod": "Cash on Delivery",
-            "upiId": "",
-            "cardNumber": "",
-            "expiry": "",
-            "cvv": "",
-            "bankAccount": ""
-          },
-          "paymentMethod": "Cash on Delivery",
-          "status": "Cancelled",
-          "createdAt": "2025-10-12T17:22:50.957Z"
-        },
-        {
-          "id": "nneqdus",
-          "userId": "8226",
-          "items": [
-            {
-              "id": "8",
-              "name": "Magnolia (Black & Gold) Marble Floor Lamp",
-              "price": 24650,
-              "material": "Metal frame with fabric lampshade",
-              "size": "Large",
-              "category": "floor lamps",
-              "warranty": "2 Years",
-              "image": "/src/assets/products/floor-4.webp",
-              "stock": 6,
-              "quantity": 1
-            }
-          ],
-          "customerDetails": {
-            "name": "shakkeera",
-            "phone": "9999999999",
-            "street": "kkj",
-            "city": "ghb",
-            "state": "bbn",
-            "zip": "56878",
-            "country": "mmnm",
-            "paymentMethod": "Cash on Delivery",
-            "upiId": "",
-            "cardNumber": "",
-            "expiry": "",
-            "cvv": "",
-            "bankAccount": ""
-          },
-          "paymentMethod": "Cash on Delivery",
-          "status": "delivered",
-          "createdAt": "2025-10-13T04:30:41.958Z"
-        },
-        {
-          "id": "csullwd",
-          "userId": "8226",
-          "items": [
-            {
-              "id": "4",
-              "name": "Winter Wonderland (Large, Copper) Crystal Chandelier",
-              "price": 125271,
-              "meterial": "Metal & Glass",
-              "size": "Large",
-              "category": "chandeliers",
-              "warranty": "2 Years",
-              "image": "/src/assets/products/chandlier-4.webp",
-              "stock": 2,
-              "quantity": 1
-            }
-          ],
-          "customerDetails": {
-            "name": "shakkeera",
-            "phone": "9999999999",
-            "street": "kkj",
-            "city": "ghb",
-            "state": "bbn",
-            "zip": "56878",
-            "country": "mmnm",
-            "paymentMethod": "Cash on Delivery",
-            "upiId": "",
-            "cardNumber": "",
-            "expiry": "",
-            "cvv": "",
-            "bankAccount": ""
-          },
-          "paymentMethod": "Cash on Delivery",
-          "status": "Cancelled",
-          "createdAt": "2025-10-13T04:37:04.688Z"
-        },
-        {
-          "id": "0n4aiz0",
-          "userId": "8226",
-          "items": [
-            {
-              "id": "21",
-              "name": "Away That Day (Gold) Clear Glass Wall Light",
-              "price": 18790,
-              "meterial": "Aluminum frame with glass cover",
-              "size": "medium",
-              "category": "wall lights",
-              "warranty": "2 Years",
-              "image": "https://www.whiteteak.com/media/catalog/product/w/l/wl141-10005_5_.jpg?width=680&height=680&canvas=680,680&optimize=medium&fit=bounds",
-              "stock": 3,
-              "quantity": 1
-            }
-          ],
-          "customerDetails": {
-            "name": "shakkeera",
-            "phone": "9999999999",
-            "street": "kkj",
-            "city": "ghb",
-            "state": "bbn",
-            "zip": "56878",
-            "country": "mmnm",
-            "paymentMethod": "Cash on Delivery",
-            "upiId": "",
-            "cardNumber": "",
-            "expiry": "",
-            "cvv": "",
-            "bankAccount": ""
-          },
-          "paymentMethod": "Cash on Delivery",
-          "status": "pending",
-          "createdAt": "2025-10-17T10:45:06.563Z"
-        }
-      ],
+      "orders": [],
       "isBlocked": false,
       "role": "admin",
-      "lastLogin": "2025-10-21T07:34:51.324Z"
+      "lastLogin": "2025-10-21T09:43:15.872Z"
     },
     {
       "id": "1a79",
@@ -549,59 +319,11 @@
       "email": "name@gmail.com",
       "password": "454545",
       "cart": [
-        {
-          "id": "22",
-          "name": "Louder Than Thunder (Gold) Crystal Wall Light",
-          "price": 19060,
-          "meterial": "Aluminum frame with glass cover",
-          "size": "medium",
-          "category": "wall lights",
-          "warranty": "2 Years",
-          "image": "/src/assets/products/wall-2.webp",
-          "stock": 2,
-          "quantity": 1
-        }
+        
       ],
       "wishlist": [],
       "date": "2025-10-09T06:04:50.481Z",
-      "orders": [
-        {
-          "id": "8e3lpvu",
-          "userId": "1a79",
-          "items": [
-            {
-              "id": "1",
-              "name": "Louder Than Thunder (Large, Gold) Crystal Chandelier",
-              "price": 112300,
-              "meterial": "Metal & Glass",
-              "size": "Large",
-              "category": "chandeliers",
-              "warranty": "2 Years",
-              "image": "/src/assets/products/chandlier-1.webp",
-              "stock": 6,
-              "quantity": 2
-            }
-          ],
-          "customerDetails": {
-            "name": "name",
-            "phone": "9999999999",
-            "street": "kkj",
-            "city": "ghb",
-            "state": "bbn",
-            "zip": "56878",
-            "country": "mmnm",
-            "paymentMethod": "Cash on Delivery",
-            "upiId": "",
-            "cardNumber": "",
-            "expiry": "",
-            "cvv": "",
-            "bankAccount": ""
-          },
-          "paymentMethod": "Cash on Delivery",
-          "status": "Cancelled",
-          "createdAt": "2025-10-09T06:06:58.340Z"
-        }
-      ],
+      "orders": [],
       "isBlocked": false,
       "role": "user",
       "lastLogin": "2025-10-16T04:21:43.811Z"

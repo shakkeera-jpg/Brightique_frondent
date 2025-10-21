@@ -12,7 +12,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (user?.id) {
-      axios.get(`http://localhost:5000/users/${user.id}`)
+      axios.get(`https://brightique.onrender.com/users/${user.id}`)
         .then(res => setProfile(res.data))
         .catch(err => console.error(err));
     }

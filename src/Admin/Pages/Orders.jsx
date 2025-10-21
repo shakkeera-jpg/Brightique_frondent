@@ -15,7 +15,7 @@ export default function Orders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/users");
+        const res = await axios.get("https://brightique.onrender.com/users");
         const allUsers = res.data;
 
         const allOrders = allUsers.flatMap((user) =>

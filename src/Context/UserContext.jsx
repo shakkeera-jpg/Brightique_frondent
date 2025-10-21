@@ -18,7 +18,7 @@ export default function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      const res = await axios.get(`http://localhost:5000/users?email=${email}`);
+      const res = await axios.get(`https://brightique.onrender.com/users?email=${email}`);
       if (res.data.length > 0 && res.data[0].password === password) {
         const loggedUser = res.data[0];
         const updatedUser = {
@@ -29,7 +29,7 @@ export default function AuthProvider({ children }) {
       return { success: false, message: "Your account is blocked. Contact support." };
     }
 
-        await axios.patch(`http://localhost:5000/users/${loggedUser.id}`, {
+        await axios.patch(`https://brightique.onrender.com/users/${loggedUser.id}`, {
           lastLogin: updatedUser.lastLogin,
         });
 
@@ -47,7 +47,7 @@ export default function AuthProvider({ children }) {
 
   const signup = async (name, email, password) => {
     try {
-      const existing = await axios.get(`http://localhost:5000/users?email=${email}`);
+      const existing = await axios.get(`https://brightique.onrender.com/users?email=${email}`);
       if (existing.data.length > 0) {
         return { success: false, message: "Email already exists" };
       }
@@ -64,7 +64,7 @@ export default function AuthProvider({ children }) {
         role: "user",
       };
 
-      await axios.post("http://localhost:5000/users", newUser);
+      await axios.post("https://brightique.onrender.com/users", newUser);
 
       return { success: true };
     } catch (err) {

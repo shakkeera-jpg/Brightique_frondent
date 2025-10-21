@@ -12,7 +12,7 @@ export default function Order() {
     if (user?.id) {
       setLoading(true);
       axios
-        .get(`http://localhost:5000/users/${user.id}`)
+        .get(`https://brightique.onrender.com/users/${user.id}`)
         .then((res) => {
           console.log("User data:", res.data);
           setOrders(res.data.orders || []);
@@ -24,6 +24,37 @@ export default function Order() {
         });
     }
   }, [user]);
+
+  // Inside your Order component
+const handleCancel = (orderId) => {
+  // Update locally first
+  setOrders((prevOrders) =>
+    prevOrders.map((order) =>
+      order.id === orderId ? { ...order, status: "Cancelled" } : order
+    )
+  );
+
+  // Update on the backend
+  axios
+    .patch(`https://brightique.onrender.com/users/${user.id}`, {
+      orders: orders.map((order) =>
+        order.id === orderId ? { ...order, status: "Cancelled" } : order
+      ),
+    })
+    .then((res) => {
+      console.log("Order cancelled:", res.data);
+    })
+    .catch((err) => {
+      console.error("Error cancelling order:", err);
+      // Optional: revert status change if API fails
+      setOrders((prevOrders) =>
+        prevOrders.map((order) =>
+          order.id === orderId ? { ...order, status: order.status } : order
+        )
+      );
+    });
+};
+
 
   if (loading) {
     return (
@@ -231,14 +262,8 @@ export default function Order() {
 
                     {/* Action Buttons */}
                     <div className="flex flex-wrap gap-4 mt-8 pt-8 border-t border-gray-200">
-                      <button className="bg-gradient-to-r from-black to-gray-800 text-yellow-500 px-6 py-3 rounded-xl font-bold hover:from-gray-800 hover:to-black transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
-                        Track Order
-                      </button>
-                      <button className="border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-xl font-bold hover:bg-gray-50 hover:border-gray-400 transition-all duration-300">
-                        View Invoice
-                      </button>
-                      <button className="border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-xl font-bold hover:bg-gray-50 hover:border-gray-400 transition-all duration-300">
-                        Reorder
+                      <button className="bg-gradient-to-r from-black to-gray-800 text-yellow-500 px-6 py-3 rounded-xl font-bold hover:from-gray-800 hover:to-black transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105" onClick={()=>handleCancel(order.id)}>
+                        Cancel
                       </button>
                     </div>
                   </div>
