@@ -318,9 +318,7 @@
       "name": "name",
       "email": "name@gmail.com",
       "password": "454545",
-      "cart": [
-        
-      ],
+      "cart": [],
       "wishlist": [],
       "date": "2025-10-09T06:04:50.481Z",
       "orders": [],
