@@ -42,14 +42,14 @@ export default function Orders() {
   
   const handleStatusChange = async (userId, orderId, newStatus) => {
     try {
-      const res = await axios.get(`http://localhost:5000/users/${userId}`);
+      const res = await axios.get(`https://brightique.onrender.com/${userId}`);
       const user = res.data;
 
       const updatedOrders = user.orders.map((order) =>
         order.id === orderId ? { ...order, status: newStatus } : order
       );
 
-      await axios.put(`http://localhost:5000/users/${userId}`, {
+      await axios.put(`https://brightique.onrender.com/${userId}`, {
         ...user,
         orders: updatedOrders,
       });
