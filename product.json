@@ -31,7 +31,7 @@
       "category": "chandeliers",
       "warranty": "2 Years",
       "image": "https://www.whiteteak.com/media/catalog/product/h/l/hl42-10006_1j_.jpg?width=550&height=550&canvas=550,550&optimize=medium&fit=bounds",
-      "stock": 11
+      "stock": 10
     },
     {
       "id": "5",
@@ -218,7 +218,7 @@
       "category": "wall lights",
       "warranty": "2 Years",
       "image": "https://www.whiteteak.com/media/catalog/product/w/l/wl141-10005_5_.jpg?width=680&height=680&canvas=680,680&optimize=medium&fit=bounds",
-      "stock": 3
+      "stock": 2
     },
     {
       "id": "22",
@@ -265,12 +265,12 @@
       "stock": 4
     },
     {
-      "id": "1760597406981",
-      "name": "light",
-      "category": "wall light",
-      "price": "22222",
-      "stock": 3,
-      "image": "data:image/jpeg;base64,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"
+      "id": "1761025869886",
+      "name": "eytdhgcb",
+      "category": "4w5rsdfx",
+      "price": "3456",
+      "stock": 7,
+      "image": "https://images.unsplash.com/photo-1746678223017-bd2fc129093a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&q=60&w=500"
     }
   ],
   "Bestseller": [
@@ -305,7 +305,20 @@
       "name": "shakkeera",
       "email": "shakkeera@gmail.com",
       "password": "1234567",
-      "cart": [],
+      "cart": [
+        {
+          "id": "4",
+          "name": "Winter Wonderland (Large, Copper) Crystal Chandelier",
+          "price": 125271,
+          "meterial": "Metal & Glass",
+          "size": "Large",
+          "category": "chandeliers",
+          "warranty": "2 Years",
+          "image": "https://www.whiteteak.com/media/catalog/product/h/l/hl42-10006_1j_.jpg?width=550&height=550&canvas=550,550&optimize=medium&fit=bounds",
+          "stock": 11,
+          "quantity": 1
+        }
+      ],
       "wishlist": [],
       "date": "2025-10-06T04:55:35.354Z",
       "orders": [
@@ -488,11 +501,47 @@
           "paymentMethod": "Cash on Delivery",
           "status": "Cancelled",
           "createdAt": "2025-10-13T04:37:04.688Z"
+        },
+        {
+          "id": "0n4aiz0",
+          "userId": "8226",
+          "items": [
+            {
+              "id": "21",
+              "name": "Away That Day (Gold) Clear Glass Wall Light",
+              "price": 18790,
+              "meterial": "Aluminum frame with glass cover",
+              "size": "medium",
+              "category": "wall lights",
+              "warranty": "2 Years",
+              "image": "https://www.whiteteak.com/media/catalog/product/w/l/wl141-10005_5_.jpg?width=680&height=680&canvas=680,680&optimize=medium&fit=bounds",
+              "stock": 3,
+              "quantity": 1
+            }
+          ],
+          "customerDetails": {
+            "name": "shakkeera",
+            "phone": "9999999999",
+            "street": "kkj",
+            "city": "ghb",
+            "state": "bbn",
+            "zip": "56878",
+            "country": "mmnm",
+            "paymentMethod": "Cash on Delivery",
+            "upiId": "",
+            "cardNumber": "",
+            "expiry": "",
+            "cvv": "",
+            "bankAccount": ""
+          },
+          "paymentMethod": "Cash on Delivery",
+          "status": "pending",
+          "createdAt": "2025-10-17T10:45:06.563Z"
         }
       ],
       "isBlocked": false,
       "role": "admin",
-      "lastLogin": "2025-10-16T07:23:32.565Z"
+      "lastLogin": "2025-10-21T07:34:51.324Z"
     },
     {
       "id": "1a79",

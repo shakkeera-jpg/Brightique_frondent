@@ -28,7 +28,7 @@ export default function Product() {
     const fetchProducts = async () => {
       try {
         const res = await axios.get("http://localhost:5000/products");
-        setProducts(res.data.reverse());
+        setProducts(res.data);
       } catch (err) {
         console.error(err);
       } finally {
@@ -52,7 +52,7 @@ export default function Product() {
 
     try {
       const res = await axios.post("http://localhost:5000/products", productToAdd);
-      setProducts([...products, res.data]);
+      setProducts([res.data,...products]);
       setShowAddModal(false);
       setNewProduct({ name: "", category: "", price: "", stock: 0, image: "" });
     } catch (err) {
