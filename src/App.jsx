@@ -8,7 +8,7 @@ import Products from './Pages/Products'
 import Cart from "./Pages/Cart";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
-import ProductCard from "./Pages/Productcard";
+import ProductCard from './Pages/ProductCard.jsx'
 import Wishlist from "./Pages/Wishlist";
 import Checkout from "./Pages/CheckOut";
 import OrderConfirmed from "./Pages/OrderConfirmed";
@@ -38,7 +38,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/Login" element={<Login/>}></Route>
         <Route path="/signup" element={<Signup/>}></Route>
-        <Route path="/product/:id" element={<ProductCard />} />
+        <Route path="/product/:id" element={<ProductCard/>} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/OrderConfirmed/:id" element={<OrderConfirmed />} />
