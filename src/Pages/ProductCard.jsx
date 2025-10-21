@@ -150,7 +150,7 @@ export default function ProductCard() {
                   >
                     -
                   </button>
-                  <span className="w-8 text-center font-semibold text-gray-900">{cart.map((product) => product.stock)}</span>
+                  <span className="w-8 text-center font-semibold text-gray-900">{cartItem?.quantity || 1}</span>
                   <button
                     onClick={() => increaseQuantity(product.id)}
                     className="w-8 h-8 bg-black text-yellow-500 rounded-lg hover:bg-gray-800 transition-colors duration-200 flex items-center justify-center font-semibold"
