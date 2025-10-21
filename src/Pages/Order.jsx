@@ -26,7 +26,11 @@ export default function Order() {
   }, [user]);
 
   // Inside your Order component
+ // --- Cancel Handler ---
 const handleCancel = (orderId) => {
+  const confirmCancel = window.confirm("Do you really want to cancel this order?");
+  if (!confirmCancel) return; // Stop if user clicked "No"
+
   // Update locally first
   setOrders((prevOrders) =>
     prevOrders.map((order) =>
@@ -46,14 +50,15 @@ const handleCancel = (orderId) => {
     })
     .catch((err) => {
       console.error("Error cancelling order:", err);
-      // Optional: revert status change if API fails
+      // Optional: revert status if API fails
       setOrders((prevOrders) =>
         prevOrders.map((order) =>
-          order.id === orderId ? { ...order, status: order.status } : order
+          order.id === orderId ? { ...order, status: "Confirmed" } : order
         )
       );
     });
 };
+
 
 
   if (loading) {
@@ -92,7 +97,7 @@ const handleCancel = (orderId) => {
             <p className="text-gray-600 mb-8 max-w-md mx-auto">
               You haven't placed any orders yet. Start shopping to see your orders here.
             </p>
-            <Link 
+            <Link
               to="/"
               className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-white px-8 py-3 rounded-xl font-bold hover:from-yellow-400 hover:to-yellow-300 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 inline-block"
             >
@@ -104,9 +109,9 @@ const handleCancel = (orderId) => {
             {orders.map((order) => {
               const total = order.items
                 ? order.items.reduce(
-                    (sum, item) => sum + item.price * item.quantity,
-                    0
-                  )
+                  (sum, item) => sum + item.price * item.quantity,
+                  0
+                )
                 : 0;
 
               return (
@@ -133,11 +138,10 @@ const handleCancel = (orderId) => {
                         </div>
                       </div>
                       <div className="flex flex-wrap gap-3">
-                        <span className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-bold ${
-                          order.status === "Confirmed" 
+                        <span className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-bold ${order.status === "Confirmed"
                             ? "bg-gradient-to-r from-green-100 to-green-50 text-green-700 border border-green-200"
                             : "bg-gradient-to-r from-yellow-100 to-yellow-50 text-yellow-700 border border-yellow-200"
-                        }`}>
+                          }`}>
                           {order.status || "Pending"}
                         </span>
                         <span className="inline-flex items-center px-4 py-2 bg-black text-yellow-500 rounded-full text-sm font-bold shadow-lg">
@@ -213,7 +217,7 @@ const handleCancel = (orderId) => {
                               <p className="font-bold text-gray-900">{order.customerDetails?.name || "N/A"}</p>
                             </div>
                           </div>
-                          
+
                           <div className="flex items-center gap-4">
                             <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center flex-shrink-0">
                               <svg className="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -262,9 +266,14 @@ const handleCancel = (orderId) => {
 
                     {/* Action Buttons */}
                     <div className="flex flex-wrap gap-4 mt-8 pt-8 border-t border-gray-200">
-                      <button className="bg-gradient-to-r from-black to-gray-800 text-yellow-500 px-6 py-3 rounded-xl font-bold hover:from-gray-800 hover:to-black transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105" onClick={()=>handleCancel(order.id)}>
-                        Cancel
-                      </button>
+                      {order.status !== "Cancelled" && (
+                        <button
+                          className="bg-gradient-to-r from-black to-gray-800 text-yellow-500 px-6 py-3 rounded-xl font-bold hover:from-gray-800 hover:to-black transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                          onClick={() => handleCancel(order.id)}
+                        >
+                          Cancel
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
