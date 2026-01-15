@@ -25,14 +25,14 @@ export default function ResetPassword() {
     <div className="flex justify-center items-center min-h-screen bg-[#FDFDFD] p-6">
       <div className="bg-white p-12 rounded-[2.5rem] shadow-sm border border-gray-100 w-full max-w-md animate-in fade-in zoom-in duration-500">
         
-        {/* --- Brand Header --- */}
+        
         <div className="mb-10 text-center">
           <p className="text-[10px] tracking-[0.5em] uppercase text-[#AF8F42] mb-3 font-bold">Security Portal</p>
           <h1 className="text-3xl font-serif text-gray-900 mb-2">Reset Password</h1>
           <div className="h-px w-12 bg-gray-100 mx-auto mt-4" />
         </div>
 
-        {/* --- Success Notification --- */}
+        
         {message && (
           <div className="mb-8 p-4 bg-emerald-50 border border-emerald-100 rounded-2xl text-emerald-700 text-[11px] font-bold uppercase tracking-wider text-center">
             <p>{message}</p>
@@ -40,7 +40,7 @@ export default function ResetPassword() {
           </div>
         )}
 
-        {/* --- Error Notification --- */}
+        
         {error && (
           <div className="mb-8 p-4 bg-rose-50 border border-rose-100 rounded-2xl text-rose-600 text-[11px] font-bold uppercase tracking-wider text-center">
             <p>{error}</p>

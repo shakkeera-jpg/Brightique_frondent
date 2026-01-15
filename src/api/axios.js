@@ -6,7 +6,7 @@ const api = axios.create({
   baseURL: base,
 });
 
-// REQUEST
+
 api.interceptors.request.use((config) => {
   const access = localStorage.getItem("access");
   if (access) {
@@ -15,7 +15,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// RESPONSE (AUTO REFRESH)
+
 api.interceptors.response.use(
   (response) => response,
   async (error) => {

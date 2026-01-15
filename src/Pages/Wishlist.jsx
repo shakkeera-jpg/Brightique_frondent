@@ -17,7 +17,7 @@ export default function Wishlist() {
     <div className="min-h-screen bg-[#FCFCFC] pt-22 pb-20 px-6">
       <div className="container mx-auto max-w-7xl">
         
-        {/* Header Section */}
+        
         <div className="flex flex-col items-center mb-20">
           <span className="text-[10px] uppercase tracking-[0.5em] text-[#AF8F42] font-bold mb-4">
             Curated Collection
@@ -35,7 +35,7 @@ export default function Wishlist() {
         </div>
 
         {wishlist.length === 0 ? (
-          /* Empty State: Boutique Style */
+          
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <div className="w-20 h-20 mb-8 border border-gray-100 flex items-center justify-center rounded-full bg-white shadow-sm">
               <svg className="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,7 +53,7 @@ export default function Wishlist() {
             </Link>
           </div>
         ) : (
-          /* Wishlist Grid */
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
             {wishlist.map((item) => {
               const outOfStock = isOutOfStock(item.product.id);
@@ -63,7 +63,7 @@ export default function Wishlist() {
                   key={item.product.id}
                   className="group flex flex-col"
                 >
-                  {/* Image Container */}
+                  
                   <div className="relative aspect-[4/5] overflow-hidden bg-[#F7F7F7] border border-gray-50 mb-6">
                     <img
                       src={item.product.image}
@@ -79,7 +79,7 @@ export default function Wishlist() {
                       </div>
                     )}
 
-                    {/* Quick Remove Top-Right */}
+                    
                     <button
                       onClick={() => removeFromWishlist(item.product.id)}
                       className="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-md text-gray-400 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
@@ -88,7 +88,7 @@ export default function Wishlist() {
                     </button>
                   </div>
 
-                  {/* Info Section */}
+                  
                   <div className="flex flex-col flex-1">
                     <h2 className="text-[11px] uppercase tracking-[0.2em] font-bold text-gray-900 mb-2 line-clamp-1">
                       {item.product.name}
@@ -97,7 +97,7 @@ export default function Wishlist() {
                       ₹{item.product.price.toLocaleString()}
                     </p>
 
-                    {/* Actions Row */}
+                    
                     <div className="mt-auto pt-4 border-t border-gray-50 flex gap-2">
                       <button
                         onClick={() => addToCartFromWishlist(item.product)}

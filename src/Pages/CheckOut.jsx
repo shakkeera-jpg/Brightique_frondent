@@ -122,7 +122,7 @@ export default function CheckOut() {
         order_id: razorpay_order_id,
 
         handler: async function (response) {
-          // ✅ ONLY success reaches here
+         
           try {
             setOrderPlaced(true);
             const verifyRes = await axios.post(
@@ -132,7 +132,7 @@ export default function CheckOut() {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_signature: response.razorpay_signature,
 
-                // SEND ADDRESS AGAIN
+                
                 name: formData.name,
                 phone: formData.phone,
                 street: formData.street,
@@ -159,7 +159,7 @@ export default function CheckOut() {
 
         modal: {
           ondismiss: function () {
-            // ✅ THIS IS CRITICAL
+            
             console.log("Payment popup closed by user");
             setLoadingOrder(false);
           }
@@ -198,7 +198,7 @@ export default function CheckOut() {
     <div className="min-h-screen bg-[#FCFCFC] pt-32 pb-20 px-6 sm:px-10">
       <div className="max-w-6xl mx-auto">
 
-        {/* Editorial Header */}
+        
         <div className="mb-16 border-b border-gray-100 pb-10">
           <span className="text-[10px] uppercase tracking-[0.4em] text-[#AF8F42] font-bold mb-3 block">
             Final Step
@@ -213,11 +213,11 @@ export default function CheckOut() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
 
-          {/* Form Side */}
+          
           <div className="lg:col-span-7">
             <form onSubmit={handlePlaceOrder} className="space-y-16">
 
-              {/* Shipping Section */}
+             
               <section>
                 <div className="flex items-center gap-4 mb-10">
                   <span className="text-[10px] w-6 h-6 border border-gray-300 flex items-center justify-center rounded-full text-gray-400 font-bold">1</span>
@@ -242,7 +242,7 @@ export default function CheckOut() {
                 </div>
               </section>
 
-              {/* Payment Section */}
+              
               <section>
                 <div className="flex items-center gap-4 mb-10">
                   <span className="text-[10px] w-6 h-6 border border-gray-300 flex items-center justify-center rounded-full text-gray-400 font-bold">2</span>
@@ -275,7 +275,7 @@ export default function CheckOut() {
             </form>
           </div>
 
-          {/* Sidebar / Summary Side */}
+          
           <div className="lg:col-span-5">
             <div className="bg-white border border-gray-100 p-8 sticky top-32">
               <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-900 mb-8 border-b border-gray-50 pb-4">
@@ -312,7 +312,7 @@ export default function CheckOut() {
                 </div>
               </div>
 
-              {/* Secure Badge */}
+              
               <div className="mt-8 flex items-center justify-center gap-2 opacity-30 grayscale">
                 <div className="w-1 h-1 bg-black rounded-full"></div>
                 <span className="text-[8px] uppercase tracking-[0.3em] font-bold">Secure Global Fulfillment</span>

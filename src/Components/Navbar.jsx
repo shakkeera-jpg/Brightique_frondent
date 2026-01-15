@@ -34,14 +34,10 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // STYLE CONSTANTS
+  
   const goldClassic = "#AF8F42";
   
-  /**
-   * FIX EXPLANATION:
-   * isHome ? "absolute" -> Floats OVER the hero image on home.
-   * !isHome ? "sticky"   -> Takes up actual space on Login/Profile so content starts BELOW it.
-   */
+  
   const navPosition = isHome ? "absolute" : "sticky";
   const glassBg = "bg-white/80 backdrop-blur-xl border-b border-gray-100/50";
   const solidBg = "bg-white/95 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-gray-100";
@@ -50,7 +46,7 @@ export default function Navbar() {
     <nav className={`${navPosition} ${isHome ? glassBg : solidBg} top-0 left-0 w-full z-50 transition-all duration-700 ease-in-out`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex justify-between items-center">
         
-        {/* LOGO: High-End Fashion Style */}
+        
         <Link 
           to="/" 
           className="relative group flex flex-col items-center"
@@ -64,7 +60,7 @@ export default function Navbar() {
           <div className="h-[1px] w-0 bg-[#AF8F42] transition-all duration-500 group-hover:w-full mt-1"></div>
         </Link>
 
-        {/* NAVIGATION: Editorial Layout */}
+        
         <div className="hidden md:flex items-center space-x-16">
           {["Home", "Products", "About"].map((item) => (
             <Link
@@ -80,9 +76,9 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* ACTIONS: Refined Iconography */}
+        
         <div className="flex items-center space-x-6 md:space-x-8">
-          {/* Wishlist */}
+          
           <Link to="/wishlist" className="relative group p-1">
             <HeartIcon className="h-5 w-5 text-gray-800 group-hover:scale-110 group-hover:text-[#AF8F42] transition-all duration-300" />
             {wishlist?.length > 0 && (
@@ -92,7 +88,7 @@ export default function Navbar() {
             )}
           </Link>
 
-          {/* Cart */}
+          
           <Link to="/cart" className="relative group p-1">
             <ShoppingCartIcon className="h-5 w-5 text-gray-800 group-hover:scale-110 group-hover:text-[#AF8F42] transition-all duration-300" />
             {cart?.length > 0 && (
@@ -107,7 +103,7 @@ export default function Navbar() {
 
           {user && <NotificationBell />}
 
-          {/* User Menu: Concierge Style */}
+          
           <div className="relative border-l border-gray-100 pl-6 md:pl-8" ref={userMenuRef}>
             {isLoggedIn ? (
               <div className="flex items-center">
@@ -122,7 +118,7 @@ export default function Navbar() {
                   <ChevronDownIcon className={`h-3 w-3 text-gray-400 transition-transform duration-500 ${userMenuOpen ? "rotate-180" : ""}`} />
                 </button>
 
-                {/* PREMIUM DROPDOWN */}
+               
                 {userMenuOpen && (
                   <div className="absolute right-0 mt-8 w-60 overflow-hidden bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] border border-gray-50 z-50 transition-all duration-300">
                     <div className="px-6 py-5 bg-gray-50/50 border-b border-gray-50">
@@ -179,7 +175,7 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile Toggle */}
+          
           <div className="md:hidden">
             <button onClick={() => setMenuOpen(!menuOpen)} className="p-2 text-gray-900 transition-transform active:scale-90">
               {menuOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
@@ -188,7 +184,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* MOBILE MENU OVERLAY */}
+     
       {menuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 p-6 flex flex-col space-y-4 shadow-lg animate-in slide-in-from-top duration-300">
            {["Home", "Products", "About"].map((item) => (

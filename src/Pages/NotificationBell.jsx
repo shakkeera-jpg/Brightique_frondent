@@ -15,7 +15,7 @@ export default function NotificationBell() {
 
   return (
     <div className="relative">
-      {/* --- TRIGGER BUTTON --- */}
+      
       <button 
         onClick={toggle} 
         className="relative p-2 rounded-full hover:bg-gray-50 transition-colors group"
@@ -24,20 +24,20 @@ export default function NotificationBell() {
 
         {unread > 0 && (
           <span className="absolute top-1.5 right-1.5 h-2 w-2 bg-[#AF8F42] rounded-full border-2 border-white ring-1 ring-[#AF8F42]/20">
-            {/* Minimalist dot badge instead of a number for a cleaner look */}
+           
           </span>
         )}
       </button>
 
-      {/* --- DROPDOWN PANEL --- */}
+      
       {open && (
         <>
-          {/* Overlay to close when clicking outside */}
+          
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
           
           <div className="absolute right-0 mt-4 w-80 bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl border border-gray-100 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
             
-            {/* Header */}
+            
             <div className="px-6 py-4 border-b border-gray-50 flex justify-between items-center">
               <div>
                 <h3 className="text-sm font-serif text-gray-900 tracking-tight">Activity</h3>
@@ -50,7 +50,7 @@ export default function NotificationBell() {
               )}
             </div>
 
-            {/* Notification List */}
+            
             <div className="max-h-96 overflow-y-auto">
               {notifications.length === 0 ? (
                 <div className="p-10 text-center">
@@ -80,7 +80,7 @@ export default function NotificationBell() {
               )}
             </div>
 
-            {/* Footer */}
+           
             <button className="w-full py-3 bg-gray-50/50 text-[9px] font-bold text-gray-400 uppercase tracking-[0.3em] hover:text-[#AF8F42] transition-colors border-t border-gray-50">
               Clear All Records
             </button>

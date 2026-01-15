@@ -43,7 +43,7 @@ export const NotificationProvider = ({ children }) => {
     console.error("Failed to mark read");
   }
 };
-  // 🔥 FETCH NOTIFICATIONS ON LOGIN
+  
   useEffect(() => {
     if (!user) {
       resetNotifications();

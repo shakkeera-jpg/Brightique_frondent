@@ -30,7 +30,6 @@ export default function Order() {
   const handleCancel = (orderId) => {
     if (window.confirm("Cancel this order?")) {
       cancelOrder(orderId);
-      // Update locally first
       setOrders((prevOrders) =>
         prevOrders.map((order) =>
           order.id === orderId ? { ...order, status: "Cancelled" } : order
@@ -53,7 +52,6 @@ export default function Order() {
   return (
     <div className="min-h-screen bg-[#fafafa] py-20 px-4 sm:px-6 lg:px-12">
       <div className="max-w-6xl mx-auto">
-        {/* Editorial Header */}
         <div className="mb-20">
           <span className="text-[10px] tracking-[0.5em] uppercase text-yellow-600 font-bold block mb-4">Account Archive</span>
           <h1 className="text-5xl md:text-6xl font-light text-gray-900 font-serif mb-6 tracking-tight">Order History</h1>
@@ -79,7 +77,6 @@ export default function Order() {
 
               return (
                 <div key={order.id} className="group transition-all duration-700">
-                  {/* Order Top Bar */}
                   <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-gray-200 pb-6 mb-8">
                     <div>
                       <h2 className="text-xs tracking-[0.3em] uppercase text-gray-400 font-bold mb-2">Reference ID</h2>
@@ -103,9 +100,9 @@ export default function Order() {
                     </div>
                   </div>
 
-                  {/* Order Content */}
+                  
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                    {/* Items List */}
+                    
                     <div className="lg:col-span-7">
                       <div className="space-y-6">
                         {order.items?.map((item, index) => (
@@ -130,7 +127,7 @@ export default function Order() {
                       </div>
                     </div>
 
-                    {/* Meta Sidebar */}
+                    
                     <div className="lg:col-span-5 bg-white p-8 border border-gray-100 shadow-sm self-start">
                       <h3 className="text-[10px] tracking-[0.4em] uppercase text-gray-900 font-black mb-6 border-b border-yellow-500 w-fit pb-1">Delivery Protocol</h3>
                       <div className="space-y-6">

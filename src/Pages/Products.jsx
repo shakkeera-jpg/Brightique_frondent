@@ -37,7 +37,7 @@ export default function Products() {
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [sortOrder, setSortOrder] = useState("none");
 
-  // --- NEW STATE FOR CUSTOM DROPDOWN ---
+  
   const [isSortOpen, setIsSortOpen] = useState(false);
   const sortRef = useRef(null);
 
@@ -60,15 +60,15 @@ export default function Products() {
   const goldClassic = "#AF8F42";
   const category = new URLSearchParams(location.search).get("category");
 
-  // --- EFFECT FOR THE LIGHT TRANSITION ---
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsDark(false);
-    }, 2000); // 2 seconds delay
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
-  // --- EFFECT TO CLOSE DROPDOWN ON OUTSIDE CLICK ---
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (sortRef.current && !sortRef.current.contains(event.target)) {
@@ -171,7 +171,7 @@ export default function Products() {
 
   return (
     <div className={`min-h-screen transition-colors duration-[1500ms] ease-in-out ${isDark ? "bg-[#0a0a0a]" : "bg-[#fafafa]"}`}>
-      {/* Page Header */}
+      
       <div className="pt-18 pb-12 text-center">
         <h1 
           className={`text-4xl md:text-5xl font-light mb-4 transition-colors duration-1000 ${isDark ? "text-white" : "text-gray-900"}`} 
@@ -183,7 +183,7 @@ export default function Products() {
       </div>
 
       <div className="container mx-auto px-6 lg:px-12">
-        {/* Search & Filters */}
+       
         <div className={`flex flex-col lg:flex-row justify-between items-center gap-8 mb-16 border-y py-8 transition-colors duration-1000 ${isDark ? "border-gray-800" : "border-gray-200"}`}>
           <div className="flex flex-wrap gap-x-8 gap-y-4 justify-center">
             {["All", "wall lights", "floor lamps", "table lamps", "pendant", "chandeliers"].map((cat) => (
@@ -210,7 +210,7 @@ export default function Products() {
               <MagnifyingGlassIcon className="w-4 h-4 text-gray-400 absolute right-2 top-2" />
             </div>
 
-            {/* UPGRADED PREMIUM SORT DROPDOWN */}
+            
             <div className="relative inline-block text-left" ref={sortRef}>
               <button
                 onClick={() => setIsSortOpen(!isSortOpen)}
@@ -253,7 +253,7 @@ export default function Products() {
                         {sortOrder === option.value && (
                           <div className="h-1 w-1 rounded-full bg-[#AF8F42]"></div>
                         )}
-                        {/* Hover accent line */}
+                        
                         <div className="absolute left-0 w-[1px] h-0 bg-[#AF8F42] group-hover:h-full transition-all duration-300"></div>
                       </button>
                     ))}
@@ -264,7 +264,7 @@ export default function Products() {
           </div>
         </div>
 
-        {/* Products Area */}
+        
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
             {[...Array(8)].map((_, i) => <ProductSkeleton key={i} />)}
@@ -340,7 +340,7 @@ export default function Products() {
           </div>
         )}
 
-        {/* Pagination */}
+        
         {!loading && products.length > 0 && (
           <div className={`flex justify-center mt-24 mb-20 gap-8 items-center border-t pt-10 transition-colors duration-1000 ${isDark ? "border-gray-900" : "border-gray-200"}`}>
             <button

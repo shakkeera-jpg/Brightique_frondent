@@ -80,10 +80,10 @@ export default function Signup() {
         `}
       </style>
 
-      {/* Main Container */}
+      
       <div className={`w-full max-w-[900px] flex flex-col md:flex-row min-h-[580px] bg-white glass-card shadow-[0_50px_100px_-20px_rgba(0,0,0,0.08)] overflow-hidden mx-4 transition-all duration-1000 ${isRevealed ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
 
-        {/* RIGHT SIDE (Form Area) */}
+        
         <div className="w-full md:w-7/12 p-12 md:p-16 flex flex-col justify-center order-2 md:order-1">
           <div className="mb-10">
             <span className="text-[8px] tracking-[0.5em] text-[#AF8F42] uppercase font-bold">Registration</span>
@@ -163,7 +163,7 @@ export default function Signup() {
           </div>
         </div>
 
-        {/* LEFT SIDE (Static Premium Light) */}
+        
         <div className="hidden md:block w-5/12 p-4 order-1 md:order-2">
           <div className="w-full h-full relative curvy-img-wrap overflow-hidden gold-shadow">
             <img

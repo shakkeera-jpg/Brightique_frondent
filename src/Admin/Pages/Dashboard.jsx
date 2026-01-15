@@ -57,7 +57,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen w-full pb-20" style={{ backgroundColor: COLORS.bg }}>
       
-      {/* 1. HEADER */}
+     
       <div className="bg-white border-b border-gray-100 px-8 py-8 mb-8">
         <div className="max-w-7xl mx-auto flex justify-between items-end">
           <div>
@@ -78,7 +78,7 @@ export default function Dashboard() {
 
       <div className="max-w-7xl mx-auto px-6 space-y-8">
         
-        {/* 2. OVERVIEW CARDS (TOP) */}
+       
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((item, index) => (
             <div key={index} className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm transition-transform hover:-translate-y-1">
@@ -90,7 +90,7 @@ export default function Dashboard() {
           ))}
         </div>
 
-        {/* 3. REVENUE TREND CHART (FULL WIDTH) */}
+       
         <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
           <div className="flex justify-between items-center mb-10">
             <div>
@@ -129,10 +129,10 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* 4. SECONDARY ANALYTICS (PIE, BAR, RADAR) */}
+        
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
-          {/* Stock Composition */}
+          
           <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
             <h3 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-6">Inventory Health</h3>
             <div className="h-64">
@@ -167,7 +167,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Category Performance */}
+          
           <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm lg:col-span-2">
             <h3 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-6">Revenue by Category</h3>
             <div className="h-72">
@@ -182,7 +182,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Market Demand (Radar) */}
+          
           <div className="bg-[#1a1a1a] p-8 rounded-2xl shadow-xl lg:col-span-3 h-[400px]">
              <h3 className="text-[10px] font-bold uppercase tracking-widest text-[#AF8F42] mb-6">Strategic Demand Analysis</h3>
              <div className="h-[300px]">

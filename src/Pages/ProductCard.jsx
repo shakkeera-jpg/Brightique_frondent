@@ -66,10 +66,10 @@ export default function ProductCard() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f4f4f4] px-4 py-20">
-      {/* Main Compact Card */}
+      
       <div className="bg-white w-full max-w-4xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] flex flex-col md:flex-row overflow-hidden border border-gray-100">
         
-        {/* Left: Image Section (Compact) */}
+        
         <div className="md:w-5/12 bg-[#f9f9f9] relative flex items-center justify-center p-8 border-r border-gray-50">
           <button 
             onClick={() => navigate(-1)}
@@ -85,7 +85,7 @@ export default function ProductCard() {
           />
         </div>
 
-        {/* Right: Content Section */}
+        
         <div className="md:w-7/12 p-8 md:p-12 flex flex-col justify-center">
           <div className="mb-6">
             <span className="text-[9px] tracking-[0.3em] text-[#AF8F42] uppercase font-bold block mb-2">
@@ -113,7 +113,7 @@ export default function ProductCard() {
             </p>
           </div>
 
-          {/* Action Row */}
+          
           <div className="flex gap-3">
             <button
               onClick={() => !outOfStock && addToCart(product.id)}
@@ -140,7 +140,7 @@ export default function ProductCard() {
             </button>
           </div>
 
-          {/* Subtle Trust Badges */}
+          
           <div className="mt-8 pt-6 border-t border-gray-50 flex gap-6">
             <div className="flex items-center gap-2">
               <div className="w-1 h-1 bg-[#AF8F42] rotate-45"></div>

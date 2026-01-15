@@ -71,7 +71,7 @@ export default function Login() {
 
 
   return (
-    // FIXED: Changed min-h-screen centering and added py-20 to prevent footer collision
+    
     <div className={`min-h-screen flex flex-col items-center justify-center transition-all duration-1000 relative z-0 py-20 lg:py-32 ${isRevealed ? "bg-[#fafafa]" : "bg-[#ececec]"}`}>
       <style>
         {`
@@ -94,10 +94,10 @@ export default function Login() {
         `}
       </style>
 
-      {/* Main Container - Optimized responsive max-width and margin */}
+     
       <div className={`w-full max-w-[850px] flex flex-col md:flex-row min-h-[550px] bg-white glass-card shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] overflow-hidden mx-4 transition-all duration-700 ${isRevealed ? "opacity-100" : "opacity-0 translate-y-4"}`}>
         
-        {/* LEFT SIDE: Golden Light Photo */}
+       
         <div className="hidden md:block w-5/12 p-3">
           <div className="w-full h-full relative curvy-img overflow-hidden">
             <img 
@@ -109,7 +109,7 @@ export default function Login() {
           </div>
         </div>
 
-        {/* RIGHT SIDE: The Form */}
+        
         <div className={`w-full md:w-7/12 p-8 md:p-16 flex flex-col justify-center ${isRevealed ? "curvy-reveal" : "opacity-0"}`}>
           <div className="mb-8 text-center md:text-left">
             <span className="text-[8px] tracking-[0.5em] text-[#AF8F42] uppercase font-bold">Authentication</span>

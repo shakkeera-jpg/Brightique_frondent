@@ -33,7 +33,7 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen bg-[#fafafa] pt-22 pb-24 px-6 font-sans antialiased">
-      {/* Custom Styles for scannability and premium feel */}
+      
       <style>
         {`
           .premium-border { border: 1px solid rgba(175, 143, 66, 0.2); }
@@ -46,7 +46,7 @@ export default function Profile() {
 
       <div className="max-w-7xl mx-auto">
         
-        {/* SECTION 1: HEADER & IDENTITY */}
+        
         <header className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gray-200 pb-12">
           <div>
             <div className="flex items-center gap-3 mb-4">
@@ -74,10 +74,10 @@ export default function Profile() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
-          {/* SECTION 2: LEFT COLUMN (Wishlist & Cart) */}
+          
           <div className="lg:col-span-8 space-y-12">
             
-            {/* WISHLIST GRID */}
+            
             <section>
               <div className="flex items-center justify-between mb-8">
                 <h3 className="text-xs font-bold tracking-[0.3em] text-gray-900 uppercase">Personal Wishlist</h3>
@@ -107,7 +107,7 @@ export default function Profile() {
               )}
             </section>
 
-            {/* CART LIST */}
+            
             <section className="bg-white p-10 premium-border shadow-sm">
               <div className="flex items-center gap-4 mb-10">
                 <ShoppingBagIcon className="w-5 h-5 text-gray-900" />
@@ -140,10 +140,10 @@ export default function Profile() {
             </section>
           </div>
 
-          {/* SECTION 3: RIGHT COLUMN (Orders & Account) */}
+          
           <aside className="lg:col-span-4 space-y-8">
             
-            {/* ORDER HISTORY */}
+           
             <div className="bg-[#1a1a1a] text-white p-10 shadow-xl">
               <div className="flex items-center gap-3 mb-10">
                 <ClockIcon className="w-5 h-5 gold-text" />
@@ -183,7 +183,7 @@ export default function Profile() {
               )}
             </div>
 
-            {/* QUICK ACTIONS */}
+            
             <div className="bg-white border border-gray-100 p-8">
               <h4 className="text-[10px] font-bold tracking-[0.3em] text-gray-900 uppercase mb-6">Concierge Services</h4>
               <div className="space-y-4">

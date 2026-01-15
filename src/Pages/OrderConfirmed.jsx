@@ -72,7 +72,7 @@ export default function OrderConfirmed() {
     <div className="min-h-screen bg-[#FCFCFC] pt-20 pb-20 px-6 sm:px-10">
       <div className="max-w-5xl mx-auto">
         
-        {/* Success Narrative */}
+        
         <div className="text-center mb-20">
           <div className="inline-flex items-center justify-center w-16 h-16 border border-[#AF8F42] rounded-full mb-8">
             <svg className="w-6 h-6 text-[#AF8F42]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,7 +94,7 @@ export default function OrderConfirmed() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           <div className="lg:col-span-8 space-y-12">
             
-            {/* Metadata Section */}
+            
             <div className="border border-gray-100 bg-white p-10">
               <div className="flex items-center gap-4 mb-10 border-b border-gray-50 pb-6">
                 <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-900">Order Metadata</h2>
@@ -111,7 +111,7 @@ export default function OrderConfirmed() {
               </div>
             </div>
 
-            {/* Visual Manifest (Items) */}
+            
             <div className="space-y-6">
               <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-400 px-2">The Manifest</h2>
               {order.items.map((item, index) => (
@@ -131,7 +131,7 @@ export default function OrderConfirmed() {
             </div>
           </div>
 
-          {/* Right Summary Column */}
+          
           <div className="lg:col-span-4">
             <div className="bg-white border border-gray-100 p-8 sticky top-32 shadow-[0_10px_40px_rgba(0,0,0,0.02)]">
               <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-900 mb-8 border-b border-gray-50 pb-4">Financial Summary</h3>

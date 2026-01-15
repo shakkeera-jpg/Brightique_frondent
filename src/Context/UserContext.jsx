@@ -7,7 +7,7 @@ export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [Authloading, setLoading] = useState(true);
 
-  //  Restore user on refresh
+  
   useEffect(() => {
     try {
       const storedUser = localStorage.getItem("user");
@@ -27,13 +27,13 @@ export default function AuthProvider({ children }) {
     }
   }, []);
 
-  // REGISTER
+ 
   const signup = async (name, email, password) => {
     await api.post("register/", { name, email, password });
     return { success: true };
   };
 
-  // LOGIN
+  
   const login = async (email, password) => {
   try {
     const res = await api.post("login/", { email, password });
@@ -64,7 +64,7 @@ export default function AuthProvider({ children }) {
 };
 
 
-  //  GOOGLE LOGIN 
+  
   const googleLogin = (data) => {
     const { access, refresh, user } = data;
 

@@ -115,7 +115,7 @@ export default function User() {
     <div className="min-h-screen bg-[#FDFDFD] text-gray-800 p-8">
       <div className="max-w-7xl mx-auto">
 
-        {/* --- Header Section --- */}
+
         <header className="mb-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
@@ -145,7 +145,7 @@ export default function User() {
           <div className="h-px w-full bg-gray-100 mt-8" />
         </header>
 
-        {/* --- Stats Row --- */}
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
           {[
             { label: "Accounts", val: totalUsers },
@@ -161,7 +161,7 @@ export default function User() {
           ))}
         </div>
 
-        {/* --- Table Section --- */}
+        
         <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-left">
@@ -219,7 +219,7 @@ export default function User() {
         </div>
       </div>
 
-      {/* --- Modal --- */}
+      
       {showModal && (
         <div className="fixed inset-0 bg-gray-900/10 backdrop-blur-md flex items-center justify-center z-[100] p-6">
           <div className="bg-white border border-gray-200 rounded-[2.5rem] w-full max-w-md shadow-xl overflow-hidden animate-in fade-in zoom-in duration-300">
@@ -286,14 +286,14 @@ export default function User() {
         <div className="fixed inset-0 bg-[#0a0a0a]/30 backdrop-blur-md flex items-center justify-center z-[200] p-6 animate-in fade-in duration-300">
           <div className="bg-white w-full max-w-md rounded-[2.5rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border border-gray-100 overflow-hidden">
 
-            {/* --- Header Section --- */}
+            
             <div className="p-10 pb-6 text-center border-b border-gray-50">
               <p className="text-[10px] tracking-[0.5em] uppercase text-[#AF8F42] mb-3 font-bold">Communication</p>
               <h3 className="text-2xl font-serif text-gray-900">Broadcast Update</h3>
               <div className="h-px w-8 bg-gray-100 mx-auto mt-4" />
             </div>
 
-            {/* --- Form Section --- */}
+            
             <div className="p-10 space-y-6">
               <div>
                 <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-[0.3em] mb-2 ml-1">
@@ -321,7 +321,7 @@ export default function User() {
               </div>
             </div>
 
-            {/* --- Action Section --- */}
+            
             <div className="p-10 pt-2 bg-gray-50/50 flex flex-col gap-3">
               <button
                 onClick={sendNotification}

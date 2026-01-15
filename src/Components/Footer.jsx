@@ -2,17 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
-  // Matching Navbar & Video Gold
+  
   const goldClassic = "#AF8F42";
 
   return (
     <footer className="bg-black py-16">
-      {/* Decreased width from container mx-auto to max-w-6xl for a more "Classic" feel */}
+      
       <div className="max-w-6xl mx-auto px-10">
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           
-          {/* Brand Section */}
+          
           <div className="md:col-span-2">
             <h2 
               className="text-2xl mb-5 tracking-[0.2em] uppercase"
@@ -25,7 +25,7 @@ export default function Footer() {
               Our pieces are designed to be the jewelry of your home.
             </p>
             
-            {/* Social Icons with Thin Minimalist Styling */}
+            
             <div className="flex gap-5 mt-8">
               {[
                 { icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z", label: "Like" },
@@ -50,7 +50,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
+          
           <div>
             <h3 className="text-[11px] font-bold text-white mb-6 uppercase tracking-[0.3em]">Navigation</h3>
             <div className="space-y-3">
@@ -66,7 +66,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Legal Links */}
+          
           <div>
             <h3 className="text-[11px] font-bold text-white mb-6 uppercase tracking-[0.3em]">Legal</h3>
             <div className="space-y-3">
@@ -83,10 +83,10 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Thin Divider matching Navbar's subtle border style */}
+        
         <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[#AF8F42]/30 to-transparent mb-10"></div>
 
-        {/* Bottom Section */}
+        
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-gray-600 text-[10px] uppercase tracking-[0.2em]">
             © {new Date().getFullYear()} Brightique • Luxury Heritage

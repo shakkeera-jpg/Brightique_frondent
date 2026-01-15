@@ -21,9 +21,9 @@ export default function WhyChooseUs() {
         
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
           
-          {/* LEFT: MINIMALIST IMAGE DISPLAY */}
+          
           <div className="w-full lg:w-1/2 relative">
-            {/* The Main Hero Image */}
+           
             <div className="relative z-10 aspect-[4/5] overflow-hidden border-[12px] border-[#f9f9f9]">
               <img 
                 src={img3} 
@@ -32,17 +32,17 @@ export default function WhyChooseUs() {
               />
             </div>
             
-            {/* Decorative Floating Elements */}
+            
             <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#AF8F42]/5 rounded-full -z-10 animate-pulse"></div>
             <div className="absolute -bottom-6 -right-6 w-3/4 h-3/4 border border-[#AF8F42]/20 -z-10"></div>
             
-            {/* Accent Small Image */}
+            
             <div className="absolute -bottom-12 -left-12 w-48 h-48 hidden xl:block shadow-2xl border-4 border-white">
                <img src={img5} alt="Detail" className="w-full h-full object-cover" />
             </div>
           </div>
 
-          {/* RIGHT: CONTENT & FEATURES */}
+          
           <div className="w-full lg:w-1/2">
             <div className="space-y-8">
               <div>
@@ -62,7 +62,7 @@ export default function WhyChooseUs() {
                 Our designs serve as the bridge between functional utility and high-end artistic expression.
               </p>
 
-              {/* Unique Professional Benefit Grid */}
+              
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 py-8 border-y border-gray-100">
                 <div className="space-y-2">
                   <h4 className="text-[11px] uppercase tracking-widest font-bold text-gray-900">Artisan Crafted</h4>

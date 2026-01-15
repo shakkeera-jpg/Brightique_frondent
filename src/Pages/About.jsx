@@ -1,19 +1,19 @@
 import React from "react";
 
 export default function About() {
-  const goldClassic = "#AF8F42"; // Professional Gold to match your theme
+  const goldClassic = "#AF8F42"; 
 
   return (
     <div className="bg-[#FCFCFC] min-h-screen pb-24 pt-40 px-6 text-gray-800 relative overflow-hidden">
       
-      {/* Subtle Background Text/Graphic */}
+      
       <div className="absolute top-40 right-[-5%] text-[15vw] font-serif italic text-gray-50 pointer-events-none select-none leading-none">
         Heritage
       </div>
 
       <div className="max-w-6xl mx-auto relative">
         
-        {/* Header Section: Editorial Style */}
+        
         <div className="mb-24 flex flex-col items-center">
           <span className="text-[10px] uppercase tracking-[0.5em] text-[#AF8F42] font-bold mb-4">
             Our Story
@@ -27,10 +27,10 @@ export default function About() {
           <div className="w-12 h-[1px] bg-[#AF8F42] mt-8"></div>
         </div>
 
-        {/* Main Content: Split Editorial Layout */}
+        
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mb-32">
           
-          {/* Image Side: Overlapping Aesthetic */}
+          
           <div className="relative order-2 lg:order-1">
             <div className="relative z-10 aspect-[4/5] w-full max-w-md mx-auto overflow-hidden shadow-2xl">
               <img
@@ -39,14 +39,14 @@ export default function About() {
                 className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-1000 scale-105 hover:scale-100"
               />
             </div>
-            {/* Decorative Gold Frame behind image */}
+            
             <div 
               className="absolute -bottom-6 -right-6 w-full h-full border border-[#AF8F42]/30 z-0 hidden md:block"
               style={{ maxWidth: '448px' }}
             ></div>
           </div>
 
-          {/* Text Side: Clean & Spacious */}
+          
           <div className="order-1 lg:order-2 space-y-8">
             <h2 className="text-2xl md:text-3xl font-serif italic text-gray-900 leading-snug">
               Brilliance meets <br /> boutique luxury.
@@ -67,7 +67,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* Second Content Block: Centered Philosophy */}
+        
         <div className="max-w-3xl mx-auto text-center space-y-10">
           <p className="text-base md:text-lg text-gray-600 leading-relaxed font-light">
             At Brightique, we strive to create a seamless experience that inspires confidence 
@@ -86,7 +86,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* Footer Decorative Element */}
+        
         <div className="mt-40 flex flex-col items-center">
           <div className="flex items-center gap-4 mb-6">
             <div className="w-12 h-px bg-gray-200"></div>

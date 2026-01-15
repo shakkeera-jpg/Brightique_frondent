@@ -9,8 +9,8 @@ export default function Video() {
 
   return (
     <div className="relative w-full h-[85vh] overflow-hidden group">
-      {/* 1. THE VIDEO: Added a subtle zoom effect on hover & Dark Overlay */}
-      <div className="absolute inset-0 bg-black/40 z-10" /> {/* Professional Overlay */}
+     
+      <div className="absolute inset-0 bg-black/40 z-10" /> 
       <video
         className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
         autoPlay
@@ -22,10 +22,10 @@ export default function Video() {
         <source src="https://www.whiteteak.com/media/customimages/homepage/video_banner_new_standard.mp4" type="video/mp4" />
       </video>
 
-      {/* 2. CONTENT AREA */}
+      
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-20">
         
-        {/* Subtitle / Eyebrow Text */}
+        
         <span className="text-[#c9a64e] uppercase tracking-[0.4em] text-xs mb-4 animate-pulse">
           Exquisite Lighting
         </span>
@@ -38,14 +38,14 @@ export default function Video() {
           <span className="italic">With A Touch Of Luxury</span>
         </h2>
 
-        {/* The Divider: More elegant and thin */}
+        
         <div className="w-24 h-[1px] bg-[#c9a64e] mb-8"></div>
 
         <p className="text-white/90 text-sm md:text-lg font-light tracking-wide max-w-2xl mb-10 leading-relaxed uppercase">
           Explore our curated collection of lighting <br /> designed to transform your world.
         </p>
 
-        {/* 3. THE BUTTON: "Ghost" style with a gold hover fill */}
+        
         <button
           onClick={handleExplore}
           className="relative overflow-hidden border border-white/50 text-white 
@@ -58,7 +58,7 @@ export default function Video() {
           <span className="relative z-10">Explore Collection</span>
         </button>
 
-        {/* 4. EXTRA FEATURE: Scroll Indicator */}
+        
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
             <span className="text-white/40 text-[10px] uppercase tracking-widest">Scroll</span>
             <div className="w-[1px] h-12 bg-gradient-to-b from-[#c9a64e] to-transparent"></div>

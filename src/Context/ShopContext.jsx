@@ -26,7 +26,7 @@ const [pagination, setPagination] = useState({
 
   
 
-  // PRODUCTS 
+  
   const fetchProducts = async ({
   search = "",
   category = "All",
@@ -69,7 +69,7 @@ const [pagination, setPagination] = useState({
     fetchProducts();
   }, []);
 
-  //  USER DATA RESET 
+  
   useEffect(() => {
     if (!user) {
       setWishlist([]);
@@ -78,7 +78,7 @@ const [pagination, setPagination] = useState({
     }
   }, [user]);
 
-  //  ORDERS 
+ 
   useEffect(() => {
   const loadOrders = async () => {
     if (!user) return;
@@ -94,7 +94,7 @@ const [pagination, setPagination] = useState({
   loadOrders();
 }, [user]);
 
-  //  WISHLIST 
+ 
   useEffect(() => {
     if (!user) {
       setWishlist([]);
@@ -113,11 +113,11 @@ const [pagination, setPagination] = useState({
     fetchWishlist();
   }, [user]);
 
-  //  ADD / REMOVE WISHLIST
+ 
   const toggleWishlist = async (productId) => {
   const alreadyInWishlist = isInWishlist(productId);
 
-  // ✅ OPTIMISTIC UPDATE (instant UI)
+  
   setWishlist(prev =>
     alreadyInWishlist
       ? prev.filter(item => item.product.id !== productId)
@@ -142,7 +142,7 @@ const [pagination, setPagination] = useState({
   const isInWishlist = (productId) =>
   wishlist.some(item => item.product.id === productId);
 
-  //  CART ACTIONS 
+  
   const saveCart = async (updatedCart) => {
     if (!user) return;
     try {

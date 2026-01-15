@@ -66,7 +66,7 @@ export default function Cart() {
     <div className="min-h-screen bg-[#FCFCFC] pt-20 pb-20 px-6">
       <div className="container mx-auto max-w-5xl">
 
-        {/* Header Section */}
+        
         <div className="flex flex-col items-center mb-16">
           <span className="text-[10px] uppercase tracking-[0.5em] text-[#AF8F42] font-bold mb-4">
             Shopping Bag
@@ -82,14 +82,14 @@ export default function Cart() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
-          {/* List of Items (Left Side) */}
+         
           <div className="lg:col-span-2 space-y-8">
             {cart.map((item) => (
               <div
                 key={item.product.id}
                 className="group flex flex-col sm:flex-row items-center gap-6 pb-8 border-b border-gray-100 transition-all"
               >
-                {/* Product Image */}
+                
                 <div className="w-32 h-40 flex-shrink-0 bg-[#F7F7F7] border border-gray-50 overflow-hidden">
                   <img
                     src={item.product.image}
@@ -98,7 +98,7 @@ export default function Cart() {
                   />
                 </div>
 
-                {/* Product Info */}
+                
                 <div className="flex-1 text-center sm:text-left">
                   <h3 className="text-[11px] uppercase tracking-[0.2em] font-bold text-gray-900 mb-1">
                     {item.product.name}
@@ -108,9 +108,9 @@ export default function Cart() {
                   </p>
 
                   <div className="flex items-center justify-center sm:justify-start gap-6">
-                    {/* Quantity Selector */}
+                    
                     <div className="flex items-center border border-gray-200 h-10">
-                      {/* Decrease */}
+                      
                       <button
                         onClick={() => decreaseQuantity(item.id)}
                         disabled={item.quantity <= 1}
@@ -126,7 +126,7 @@ export default function Cart() {
                         {item.quantity}
                       </span>
 
-                      {/* Increase */}
+                      
                       <button
                         onClick={() => increaseQuantity(item.id)}
                         disabled={item.quantity >= item.product.stock}
@@ -145,7 +145,7 @@ export default function Cart() {
                   </div>
                 </div>
 
-                {/* Remove Button */}
+                
                 <button
                   onClick={() => handleRemoveFromCart(item)}
                   className="p-3 text-gray-300 hover:text-red-400 transition-colors"
@@ -157,7 +157,7 @@ export default function Cart() {
             ))}
           </div>
 
-          {/* Order Summary (Right Side) */}
+          
           <div className="lg:col-span-1">
             <div className="bg-white border border-gray-100 p-8 sticky top-32 shadow-[0_10px_40px_rgba(0,0,0,0.03)]">
               <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-900 mb-8 border-b border-gray-50 pb-4">

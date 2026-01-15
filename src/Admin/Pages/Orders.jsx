@@ -95,7 +95,7 @@ export default function AdminOrders() {
     <div className="min-h-screen bg-[#FDFDFD] text-gray-800 p-8">
       <div className="max-w-7xl mx-auto">
         
-        {/* --- Header & Overview --- */}
+        
         <header className="mb-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
@@ -143,7 +143,7 @@ export default function AdminOrders() {
           ))}
         </div>
 
-        {/* --- Table --- */}
+        
         <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-left">
@@ -199,7 +199,7 @@ export default function AdminOrders() {
             </table>
           </div>
 
-          {/* --- Pagination --- */}
+          
           <div className="px-8 py-6 border-t border-gray-50 flex items-center justify-between bg-gray-50/30">
             <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em]">Folio {page} of {totalPages}</p>
             <div className="flex gap-4">
@@ -222,7 +222,7 @@ export default function AdminOrders() {
         </div>
       </div>
 
-      {/* --- Order Detail Modal --- */}
+      
       {selectedOrder && (
         <div className="fixed inset-0 bg-gray-900/10 backdrop-blur-md flex items-center justify-center z-[100] p-6">
           <div className="bg-white border border-gray-200 rounded-[2.5rem] w-full max-w-xl shadow-xl overflow-hidden animate-in fade-in zoom-in duration-300">

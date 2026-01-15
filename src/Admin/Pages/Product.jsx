@@ -30,7 +30,7 @@ export default function Product() {
       maximumFractionDigits: 0,
     }).format(price);
 
-  // FETCH PRODUCTS (Logic untouched)
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -128,7 +128,7 @@ export default function Product() {
 
   return (
     <div className="min-h-screen bg-[#FDFDFD] text-gray-800 p-8">
-      {/* HEADER SECTION */}
+     
       <div className="max-w-7xl mx-auto mb-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
@@ -167,7 +167,7 @@ export default function Product() {
         <div className="h-px w-full bg-gray-100 mt-8" />
       </div>
 
-      {/* TABLE SECTION */}
+      
       <div className="max-w-7xl mx-auto">
         <div className="bg-white shadow-sm rounded-3xl border border-gray-100 overflow-hidden">
           <table className="w-full text-left">
@@ -217,7 +217,7 @@ export default function Product() {
             </tbody>
           </table>
 
-          {/* PAGINATION */}
+          
           <div className="px-8 py-6 border-t border-gray-50 flex items-center justify-between bg-gray-50/30">
             <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em]">Folio {page} of {totalPages}</p>
             <div className="flex gap-5">
@@ -240,7 +240,7 @@ export default function Product() {
         </div>
       </div>
 
-      {/* MODALS */}
+      
       {(showAddModal || (showEditModal && editProduct)) && (
         <div className="fixed inset-0 bg-gray-900/10 backdrop-blur-md flex justify-center items-center z-[100] p-4">
           <div className="bg-white rounded-[2.5rem] shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-300 border border-gray-100">

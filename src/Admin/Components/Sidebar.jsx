@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../Context/UserContext";
 
-// Refined Premium Icons with thinner strokes
+
 const DashboardIcon = ({ isActive }) => (
   <svg className={`w-5 h-5 transition-colors duration-300 ${isActive ? 'stroke-[#AF8F42]' : 'stroke-gray-500'}`} viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <rect x="3" y="3" width="7" height="7" />
@@ -63,7 +63,7 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile Toggle Button */}
+     
       <button
         className="md:hidden fixed top-6 left-6 z-[100] p-3 bg-[#1a1a1a] border border-white/10 rounded-full text-[#AF8F42] shadow-2xl"
         onClick={() => setIsOpen(!isOpen)}
@@ -73,7 +73,7 @@ export default function Sidebar() {
         </svg>
       </button>
 
-      {/* Sidebar Container */}
+      
       <div className={`
         w-72 h-screen bg-[#0D0D0D] text-gray-300
         p-8 fixed top-0 left-0 z-[90]
@@ -83,7 +83,7 @@ export default function Sidebar() {
         md:translate-x-0
       `}>
         
-        {/* Logo Section */}
+        
         <div className="mb-16">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-10 h-10 border border-[#AF8F42]/30 rounded-full flex items-center justify-center bg-gradient-to-br from-[#AF8F42]/20 to-transparent">
@@ -97,7 +97,7 @@ export default function Sidebar() {
           <div className="h-px w-full bg-gradient-to-r from-white/10 to-transparent mt-6" />
         </div>
 
-        {/* Navigation */}
+        
         <nav className="flex flex-col h-[calc(100%-250px)]">
           <div className="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-600 mb-6 ml-4">Core Assets</div>
           
@@ -133,7 +133,7 @@ export default function Sidebar() {
           </div>
         </nav>
 
-        {/* User / Logout Section */}
+        
         <div className="absolute bottom-12 left-8 right-8">
           <button 
             onClick={logout} 
@@ -145,7 +145,7 @@ export default function Sidebar() {
         
       </div>
 
-      {/* Overlay for mobile */}
+      
       {isOpen && (
         <div 
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[80] md:hidden"
