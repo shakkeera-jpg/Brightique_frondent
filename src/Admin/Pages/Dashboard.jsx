@@ -1,336 +1,208 @@
-import React, { useContext, useEffect, useState } from "react";
-import { ShopContext } from "../../Context/ShopContext";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import api from "../../api/axios";
 import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  RadarChart,
-  Radar,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
+  PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer,
+  RadarChart, Radar, PolarGrid, PolarAngleAxis, AreaChart, Area,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid
 } from "recharts";
 
 export default function Dashboard() {
-  const { products, orders } = useContext(ShopContext);
-  const [users, setUsers] = useState([]);
+  const [dashboard, setDashboard] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  
   const COLORS = {
-    primary: "#D97706", 
-    primaryDark: "#B45309", 
-    primaryLight: "#F59E0B", 
-    background: "#FFFBEB", 
-    card: "#FFFFFF",
-    text: "#1F2937",
-    textLight: "#6B7280",
-    success: "#10B981",
-    danger: "#EF4444",
-    grid: "#E5E7EB"
+    gold: "#AF8F42",
+    goldLight: "#E5D5B0",
+    slate: "#1f2937",
+    grayLight: "#9ca3af",
+    bg: "#f9fafb",
+    white: "#ffffff",
+    border: "#f3f4f6"
   };
 
-  
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchDashboard = async () => {
       try {
-        const res = await axios.get("https://brightique.onrender.com/users");
-        setUsers(res.data);
+        const res = await api.get("dashboard/");
+        setDashboard(res.data);
       } catch (error) {
-        console.error("Error fetching users:", error);
+        if (error.response?.status === 401 || error.response?.status === 403) {
+          localStorage.clear();
+          window.location.href = "/login";
+        }
       } finally {
         setLoading(false);
       }
     };
-    fetchUsers();
+    fetchDashboard();
   }, []);
-
-  
-  const inStock = products.filter((p) => (p.stock ?? 0) > 0).length;
-  const outOfStock = products.filter((p) => (p.stock ?? 0) === 0).length;
-  const stockData = [
-    { name: "In Stock", value: inStock },
-    { name: "Out of Stock", value: outOfStock },
-  ];
-
-  
-  const categories = Array.from(new Set(products.map((p) => p.category)));
-
-  const categoryOrderCount = {};
-  categories.forEach((cat) => (categoryOrderCount[cat] = 0));
-
-  orders.forEach((order) => {
-    if (!order.items || order.status.toLowerCase() === "cancelled") return;
-
-    order.items.forEach((item) => {
-      if (!item.category) return;
-      const category = item.category;
-      if (categories.includes(category)) {
-        categoryOrderCount[category] += item.quantity ?? 1;
-      }
-    });
-  });
-
-  const radarData = Object.entries(categoryOrderCount).map(([name, orders]) => ({
-    name,
-    orders,
-  }));
-
-  
-  const stockPerCategory = categories.map((category) => {
-    const totalStock = products
-      .filter((p) => p.category === category)
-      .reduce((sum, p) => sum + (p.stock ?? 0), 0);
-    return { category, stock: totalStock };
-  });
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: COLORS.background }}>
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderColor: COLORS.primary }}></div>
-          <p className="text-lg font-medium" style={{ color: COLORS.text }}>Loading dashboard data...</p>
-        </div>
+      <div className="flex items-center justify-center min-h-screen bg-[#fcfcfc]">
+        <div className="w-8 h-8 border-2 border-t-[#AF8F42] border-gray-200 rounded-full animate-spin" />
       </div>
     );
   }
 
+  if (!dashboard) return null;
+
+  const stats = [
+    { label: "Gross Revenue", value: `${dashboard.total_revenue.toLocaleString()}`, trend: "Global Portfolio", icon: "Balance" },
+    { label: "Boutique Assets", value: dashboard.total_products, trend: "Inventory Count", icon: "Store" },
+    { label: "Order Volume", value: dashboard.total_orders, trend: "Client Requests", icon: "List" },
+    { label: "Member Base", value: dashboard.total_users, trend: "Total Registrations", icon: "Users" },
+  ];
+
   return (
-    <div className="min-h-screen w-full px-4 sm:px-6 md:px-8 lg:px-12 py-8" style={{ backgroundColor: COLORS.background }}>
+    <div className="min-h-screen w-full pb-20" style={{ backgroundColor: COLORS.bg }}>
       
-      <div className="mb-10 text-center">
-        <h1 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: COLORS.text }}>
-          Admin Dashboard
-        </h1>
-        <p className="text-lg" style={{ color: COLORS.textLight }}>
-          Overview of your store performance
-        </p>
-      </div>
-
-     
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        <div 
-          className="relative overflow-hidden rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-          style={{ backgroundColor: COLORS.card }}
-        >
-          <div className="absolute top-0 right-0 w-20 h-20 -mr-6 -mt-6 rounded-full opacity-10" style={{ backgroundColor: COLORS.primary }}></div>
-          <div className="flex items-center">
-            <div className="p-3 rounded-xl mr-4" style={{ backgroundColor: COLORS.background }}>
-              <svg className="w-6 h-6" style={{ color: COLORS.primary }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2M4 13h2m8-8V4a1 1 0 00-1-1h-2a1 1 0 00-1 1v1M9 7h6" />
-              </svg>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wide" style={{ color: COLORS.textLight }}>Total Products</h3>
-              <p className="text-3xl font-bold mt-1" style={{ color: COLORS.text }}>{products.length}</p>
-            </div>
+      {/* 1. HEADER */}
+      <div className="bg-white border-b border-gray-100 px-8 py-8 mb-8">
+        <div className="max-w-7xl mx-auto flex justify-between items-end">
+          <div>
+            <p className="text-[9px] tracking-[0.4em] text-[#AF8F42] uppercase font-bold mb-1">Brightique Analytics</p>
+            <h1 className="text-4xl font-light text-gray-900" style={{ fontFamily: "'Playfair Display', serif" }}>
+              The Dashboard
+            </h1>
           </div>
-        </div>
-
-        <div 
-          className="relative overflow-hidden rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-          style={{ backgroundColor: COLORS.card }}
-        >
-          <div className="absolute top-0 right-0 w-20 h-20 -mr-6 -mt-6 rounded-full opacity-10" style={{ backgroundColor: COLORS.primary }}></div>
-          <div className="flex items-center">
-            <div className="p-3 rounded-xl mr-4" style={{ backgroundColor: COLORS.background }}>
-              <svg className="w-6 h-6" style={{ color: COLORS.primary }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-              </svg>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wide" style={{ color: COLORS.textLight }}>Total Orders</h3>
-              <p className="text-3xl font-bold mt-1" style={{ color: COLORS.text }}>{orders.length}</p>
-            </div>
-          </div>
-        </div>
-
-        <div 
-          className="relative overflow-hidden rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-          style={{ backgroundColor: COLORS.card }}
-        >
-          <div className="absolute top-0 right-0 w-20 h-20 -mr-6 -mt-6 rounded-full opacity-10" style={{ backgroundColor: COLORS.primary }}></div>
-          <div className="flex items-center">
-            <div className="p-3 rounded-xl mr-4" style={{ backgroundColor: COLORS.background }}>
-              <svg className="w-6 h-6" style={{ color: COLORS.primary }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wide" style={{ color: COLORS.textLight }}>Total Users</h3>
-              <p className="text-3xl font-bold mt-1" style={{ color: COLORS.text }}>{users.length}</p>
+          <div className="hidden md:block text-right">
+            <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Reporting Status</p>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+              <span className="text-xs font-medium text-gray-600 uppercase tracking-tighter">Live Intelligence</span>
             </div>
           </div>
         </div>
       </div>
 
-      
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
+      <div className="max-w-7xl mx-auto px-6 space-y-8">
         
-        <div 
-          className="xl:col-span-1 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
-          style={{ backgroundColor: COLORS.card }}
-        >
-          <div className="flex items-center mb-6">
-            <div className="p-2 rounded-lg mr-3" style={{ backgroundColor: COLORS.background }}>
-              <svg className="w-5 h-5" style={{ color: COLORS.primary }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
-              </svg>
+        {/* 2. OVERVIEW CARDS (TOP) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {stats.map((item, index) => (
+            <div key={index} className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm transition-transform hover:-translate-y-1">
+              <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-1">{item.label}</p>
+              <p className="text-2xl font-bold text-gray-900 mb-2">{`₹${item.value}`}</p>
+              <div className="h-[1px] w-8 bg-[#AF8F42] mb-2"></div>
+              <p className="text-[9px] text-gray-400 italic tracking-wider">{item.trend}</p>
             </div>
-            <h2 className="text-xl font-bold" style={{ color: COLORS.text }}>Stock Status</h2>
+          ))}
+        </div>
+
+        {/* 3. REVENUE TREND CHART (FULL WIDTH) */}
+        <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+          <div className="flex justify-between items-center mb-10">
+            <div>
+              <h2 className="text-lg font-semibold text-gray-800 tracking-tight">Financial Trajectory</h2>
+              <p className="text-xs text-gray-400">Monthly revenue accumulation and market growth</p>
+            </div>
+            <div className="bg-[#fcfcfc] border border-gray-100 px-4 py-2 rounded-full">
+               <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">30 Day Report</span>
+            </div>
           </div>
-          <div className="w-full h-80">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
+          <div className="h-[400px]">
+            <ResponsiveContainer>
+              <AreaChart data={dashboard.revenue_over_time}>
                 <defs>
-                  <linearGradient id="inStockGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={COLORS.primary} stopOpacity={0.9} />
-                    <stop offset="100%" stopColor={COLORS.primaryDark} stopOpacity={0.9} />
-                  </linearGradient>
-                  <linearGradient id="outStockGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={COLORS.danger} stopOpacity={0.9} />
-                    <stop offset="100%" stopColor="#B91C1C" stopOpacity={0.9} />
+                  <linearGradient id="revenueGlow" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#AF8F42" stopOpacity={0.2}/>
+                    <stop offset="95%" stopColor="#AF8F42" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-
-                <Pie
-                  data={stockData}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  innerRadius="40%"
-                  outerRadius="70%"
-                  paddingAngle={2}
-                  cornerRadius={8}
-                  labelLine={false}
-                >
-                  {stockData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={entry.name === "In Stock" ? "url(#inStockGradient)" : "url(#outStockGradient)"}
-                      stroke={COLORS.card}
-                      strokeWidth={3}
-                    />
-                  ))}
-                </Pie>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+                <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{fill: '#9ca3af', fontSize: 10}} dy={10} />
+                <YAxis axisLine={false} tickLine={false} tick={{fill: '#9ca3af', fontSize: 10}} tickFormatter={(v) => `$${v}`} />
                 <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: COLORS.card, 
-                    border: `1px solid ${COLORS.grid}`,
-                    borderRadius: '8px',
-                    color: COLORS.text
-                  }}
+                  contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }} 
                 />
-                <Legend
-                  verticalAlign="bottom"
-                  height={36}
-                  formatter={(value) => <span className="text-sm font-medium" style={{ color: COLORS.text }}>{value}</span>}
+                <Area 
+                  type="monotone" 
+                  dataKey="revenue" 
+                  stroke="#AF8F42" 
+                  strokeWidth={3} 
+                  fillOpacity={1} 
+                  fill="url(#revenueGlow)" 
                 />
-              </PieChart>
+              </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-       
-        <div 
-          className="xl:col-span-2 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
-          style={{ backgroundColor: COLORS.card }}
-        >
-          <div className="flex items-center mb-6">
-            <div className="p-2 rounded-lg mr-3" style={{ backgroundColor: COLORS.background }}>
-              <svg className="w-5 h-5" style={{ color: COLORS.primary }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
+        {/* 4. SECONDARY ANALYTICS (PIE, BAR, RADAR) */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          {/* Stock Composition */}
+          <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+            <h3 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-6">Inventory Health</h3>
+            <div className="h-64">
+              <ResponsiveContainer>
+                <PieChart>
+                  <Pie 
+                    data={[
+                      { name: "Available", value: dashboard.in_stock },
+                      { name: "Depleted", value: dashboard.out_of_stock }
+                    ]} 
+                    dataKey="value" 
+                    innerRadius={70} 
+                    outerRadius={90} 
+                    paddingAngle={8}
+                  >
+                    <Cell fill="#AF8F42" stroke="none" />
+                    <Cell fill="#1a1a1a" stroke="none" />
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
             </div>
-            <h2 className="text-xl font-bold" style={{ color: COLORS.text }}>Stock per Category</h2>
+            <div className="flex justify-center gap-6 mt-4">
+               <div className="flex items-center gap-2">
+                 <div className="w-2 h-2 rounded-full bg-[#AF8F42]"></div>
+                 <span className="text-[10px] uppercase tracking-tighter text-gray-500">In Stock</span>
+               </div>
+               <div className="flex items-center gap-2">
+                 <div className="w-2 h-2 rounded-full bg-[#1a1a1a]"></div>
+                 <span className="text-[10px] uppercase tracking-tighter text-gray-500">Out of Stock</span>
+               </div>
+            </div>
           </div>
-          <div className="w-full h-80">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart 
-                data={stockPerCategory} 
-                margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
-              >
-                <XAxis 
-                  dataKey="category" 
-                  tick={{ fill: COLORS.text, fontSize: 12 }}
-                  axisLine={{ stroke: COLORS.grid }}
-                />
-                <YAxis 
-                  tick={{ fill: COLORS.textLight, fontSize: 12 }}
-                  axisLine={{ stroke: COLORS.grid }}
-                />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: COLORS.card, 
-                    border: `1px solid ${COLORS.grid}`,
-                    borderRadius: '8px',
-                    color: COLORS.text
-                  }}
-                />
-                <Legend />
-                <Bar 
-                  dataKey="stock" 
-                  fill={COLORS.primary}
-                  radius={[4, 4, 0, 0]}
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </div>
 
-    
-      <div 
-        className="rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
-        style={{ backgroundColor: COLORS.card }}
-      >
-        <div className="flex items-center mb-6">
-          <div className="p-2 rounded-lg mr-3" style={{ backgroundColor: COLORS.background }}>
-            <svg className="w-5 h-5" style={{ color: COLORS.primary }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-            </svg>
+          {/* Category Performance */}
+          <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm lg:col-span-2">
+            <h3 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-6">Revenue by Category</h3>
+            <div className="h-72">
+              <ResponsiveContainer>
+                <BarChart data={dashboard.revenue_per_category} margin={{left: -20}}>
+                  <XAxis dataKey="category" axisLine={false} tickLine={false} tick={{fill: '#9ca3af', fontSize: 10}} />
+                  <YAxis axisLine={false} tickLine={false} tick={{fill: '#9ca3af', fontSize: 10}} />
+                  <Tooltip cursor={{fill: '#fcfcfc'}} />
+                  <Bar dataKey="revenue" fill="#AF8F42" radius={[4, 4, 0, 0]} barSize={30} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
-          <h2 className="text-xl font-bold" style={{ color: COLORS.text }}>Orders per Category</h2>
-        </div>
-        <div className="w-full h-80">
-          <ResponsiveContainer width="100%" height="100%">
-            <RadarChart data={radarData}>
-              <PolarGrid stroke={COLORS.grid} />
-              <PolarAngleAxis 
-                dataKey="name" 
-                tick={{ fill: COLORS.text, fontSize: 12 }}
-              />
-              <PolarRadiusAxis 
-                tick={{ fill: COLORS.textLight, fontSize: 10 }}
-              />
-              <Radar
-                name="Orders"
-                dataKey="orders"
-                stroke={COLORS.primary}
-                fill={COLORS.primaryLight}
-                fillOpacity={0.6}
-              />
-              <Tooltip 
-                contentStyle={{ 
-                  backgroundColor: COLORS.card, 
-                  border: `1px solid ${COLORS.grid}`,
-                  borderRadius: '8px',
-                  color: COLORS.text
-                }}
-              />
-              <Legend />
-            </RadarChart>
-          </ResponsiveContainer>
+
+          {/* Market Demand (Radar) */}
+          <div className="bg-[#1a1a1a] p-8 rounded-2xl shadow-xl lg:col-span-3 h-[400px]">
+             <h3 className="text-[10px] font-bold uppercase tracking-widest text-[#AF8F42] mb-6">Strategic Demand Analysis</h3>
+             <div className="h-[300px]">
+                <ResponsiveContainer>
+                  <RadarChart data={dashboard.orders_per_category.map(i => ({name: i.category, orders: i.orders}))}>
+                    <PolarGrid stroke="#374151" />
+                    <PolarAngleAxis dataKey="name" tick={{fill: '#9ca3af', fontSize: 10}} />
+                    <Radar 
+                      name="Volume" 
+                      dataKey="orders" 
+                      stroke="#AF8F42" 
+                      fill="#AF8F42" 
+                      fillOpacity={0.4} 
+                    />
+                    <Tooltip />
+                  </RadarChart>
+                </ResponsiveContainer>
+             </div>
+          </div>
+
         </div>
       </div>
     </div>

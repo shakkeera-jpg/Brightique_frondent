@@ -14,51 +14,74 @@ export default function Featured() {
   }, []);
 
   return (
-    <div className="py-16 px-6 md:px-10 lg:px-20 bg-transparent font-[Times_New_Roman]">
+    <div className="py-24 px-6 md:px-10 lg:px-20 bg-[#FCFCFC] overflow-hidden">
       
-      <h2 className="text-3xl md:text-4xl font-bold text-[#c9a64e] text-center mb-10 relative">
-        <span className="relative inline-block pb-2">
-          Golden Treasures
-          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-[2px] bg-[#c9a64e]/60"></span>
+      {/* Editorial Header */}
+      <div className="flex flex-col items-center mb-16 text-center">
+        <span className="text-[10px] uppercase tracking-[0.5em] text-[#AF8F42] font-bold mb-4">
+          The Curated List
         </span>
-      </h2>
+        <h2 
+          className="text-4xl md:text-5xl font-light text-gray-900 italic"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          Golden Treasures
+        </h2>
+        <div className="w-12 h-[1px] bg-[#AF8F42] mt-6"></div>
+      </div>
 
-      
-      <div className="flex space-x-4 overflow-x-auto py-4 no-scrollbar">
+      {/* Horizontal Boutique Slider */}
+      <div className="flex space-x-10 overflow-x-auto pb-12 pt-4 no-scrollbar scroll-smooth">
         {products.map((product) => (
           <div
             key={product.id}
-            className="w-[300px] h-[250px] bg-gray-200 rounded-xl border border-gray-300 shadow-md hover:shadow-lg transition-all duration-500 flex-shrink-0 flex flex-col items-center justify-between p-2 bg-black"
+            onClick={() => navigate(`/product/${product.id}`)}
+            className="w-[280px] group cursor-pointer flex-shrink-0"
           >
-            
-            <div className="mt-3">
-              <div className="relative w-30 h-30 rounded-md overflow-hidden border-[2px] border-[#c9a64e] shadow-[0_0_5px_rgba(201,166,78,0.3)]">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
+            {/* Image Frame: Minimalist & Clean */}
+            <div className="relative aspect-[4/5] overflow-hidden bg-[#F7F7F7] mb-6 border border-gray-100">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full object-contain mix-blend-multiply transition-transform duration-[1.5s] ease-out group-hover:scale-110"
+              />
+              
+              {/* Subtle Tag */}
+              <div className="absolute top-4 left-4">
+                <span className="bg-white/90 backdrop-blur-sm text-[8px] uppercase tracking-[0.2em] px-3 py-1 font-bold text-gray-400 border border-gray-100">
+                  Best Seller
+                </span>
+              </div>
+
+              {/* Quick View Overlay */}
+              <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                <span className="bg-white text-[9px] uppercase tracking-widest px-6 py-3 font-bold shadow-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                  Acquire Piece
+                </span>
               </div>
             </div>
 
-            
-            <div className="text-center px-1 flex-1 flex flex-col justify-center">
-              <h3 className="text-xs font-semibold text-gray-800 leading-snug mb-1 line-clamp-2">
+            {/* Product Details */}
+            <div className="space-y-2">
+              <h3 className="text-[11px] uppercase tracking-[0.25em] font-semibold text-gray-800 line-clamp-1 group-hover:text-[#AF8F42] transition-colors">
                 {product.name}
               </h3>
-              <p className="text-[#c9a64e] text-sm font-medium mb-2">
-                ₹{product.price.toLocaleString()}
-              </p>
+              <div className="flex items-center justify-between border-t border-gray-50 pt-2">
+                <p className="text-[#AF8F42] text-sm font-light tracking-tight">
+                  ₹{product.price.toLocaleString()}
+                </p>
+                <div className="w-1.5 h-1.5 rounded-full bg-gray-200 group-hover:bg-[#AF8F42] transition-colors"></div>
+              </div>
             </div>
-
-            <button
-              onClick={() => navigate(`/product/${product.id}`)}
-              className="bg-[#c9a64e] text-white text-xs px-2 py-1 rounded-full font-medium hover:bg-[#b8933d] transition-all duration-300 w-full"
-            >
-              View
-            </button>
           </div>
         ))}
+      </div>
+
+      {/* Aesthetic Scroll Indicator */}
+      <div className="flex justify-center mt-4">
+        <div className="w-48 h-[1px] bg-gray-100 relative overflow-hidden">
+          <div className="absolute left-0 top-0 h-full bg-[#AF8F42] w-1/3 animate-scroll-hint"></div>
+        </div>
       </div>
     </div>
   );

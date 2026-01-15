@@ -2,41 +2,79 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
+  // Matching Navbar & Video Gold
+  const goldClassic = "#AF8F42";
+
   return (
-    <footer className="bg-gradient-to-b from-gray-900 to-black border-t border-yellow-500/20 py-8">
-      <div className="container mx-auto px-6">
+    <footer className="bg-black py-16">
+      {/* Decreased width from container mx-auto to max-w-6xl for a more "Classic" feel */}
+      <div className="max-w-6xl mx-auto px-10">
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           
+          {/* Brand Section */}
           <div className="md:col-span-2">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent mb-3 font-serif">
+            <h2 
+              className="text-2xl mb-5 tracking-[0.2em] uppercase"
+              style={{ color: goldClassic, fontFamily: "'Playfair Display', serif" }}
+            >
               Brightique
             </h2>
-            <p className="text-gray-400 text-sm leading-relaxed max-w-md">
-              Discover premium products and experience luxury shopping redefined.
+            <p className="text-gray-500 text-sm leading-relaxed max-w-sm tracking-wide font-light">
+              Redefining luxury lighting through curated excellence. 
+              Our pieces are designed to be the jewelry of your home.
             </p>
-            <div className="flex gap-3 mt-4">
-              {['M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z', 
-                'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z']
-                .map((path, index) => (
-                <div key={index} className="w-8 h-8 bg-black/50 rounded flex items-center justify-center border border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300 cursor-pointer">
-                  <svg className="w-4 h-4 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={path} />
+            
+            {/* Social Icons with Thin Minimalist Styling */}
+            <div className="flex gap-5 mt-8">
+              {[
+                { icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z", label: "Like" },
+                { icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z", label: "Chat" },
+                { icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", label: "Email" }
+              ].map((item, index) => (
+                <button
+                  key={index}
+                  className="transition-all duration-300 hover:opacity-60"
+                  aria-label={item.label}
+                >
+                  <svg 
+                    className="w-5 h-5 transition-colors" 
+                    fill="none" 
+                    stroke={goldClassic} 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d={item.icon} />
                   </svg>
-                </div>
+                </button>
               ))}
             </div>
           </div>
 
-          
+          {/* Quick Links */}
           <div>
-            <h3 className="text-md font-semibold text-white mb-3 font-serif">Quick Links</h3>
-            <div className="space-y-2">
-              {['Home', 'Products', 'About'].map((item) => (
+            <h3 className="text-[11px] font-bold text-white mb-6 uppercase tracking-[0.3em]">Navigation</h3>
+            <div className="space-y-3">
+              {['Home', 'Products', 'Collections', 'About'].map((item) => (
                 <Link
                   key={item}
                   to={`/${item === 'Home' ? '' : item.toLowerCase()}`}
-                  className="block text-gray-400 hover:text-yellow-400 transition-all duration-300 hover:translate-x-1 text-sm font-medium"
+                  className="block text-gray-500 hover:text-white transition-all duration-300 text-[12px] tracking-widest uppercase"
+                >
+                  {item}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Legal Links */}
+          <div>
+            <h3 className="text-[11px] font-bold text-white mb-6 uppercase tracking-[0.3em]">Legal</h3>
+            <div className="space-y-3">
+              {['Privacy Policy', 'Terms', 'Cookies'].map((item) => (
+                <Link
+                  key={item}
+                  to={`/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                  className="block text-gray-500 hover:text-white transition-all duration-300 text-[12px] tracking-widest uppercase"
                 >
                   {item}
                 </Link>
@@ -45,29 +83,20 @@ export default function Footer() {
           </div>
         </div>
 
-        
-        <div className="border-t border-gray-800 pt-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-3">
-            
-            <p className="text-gray-500 text-xs">
-              © {new Date().getFullYear()} Brightique. All rights reserved.
-            </p>
-            
-            
-            <div className="text-gray-500 text-xs">
-              <p>support@brightique.com</p>
-            </div>
-          </div>
-        </div>
+        {/* Thin Divider matching Navbar's subtle border style */}
+        <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[#AF8F42]/30 to-transparent mb-10"></div>
 
-        
-        <div className="text-center mt-4">
-          <span className="inline-flex items-center gap-1 bg-gradient-to-r from-yellow-500/10 to-yellow-500/5 border border-yellow-500/20 px-3 py-1 rounded-full text-yellow-400 text-xs font-medium">
-            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1z" clipRule="evenodd" />
-            </svg>
-            Premium Luxury
-          </span>
+        {/* Bottom Section */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-gray-600 text-[10px] uppercase tracking-[0.2em]">
+            © {new Date().getFullYear()} Brightique • Luxury Heritage
+          </p>
+          
+          <div className="flex items-center gap-6">
+            <span className="text-gray-600 text-[10px] uppercase tracking-[0.2em]">Kochi, India</span>
+            <div className="w-1 h-1 rounded-full" style={{ backgroundColor: goldClassic }}></div>
+            <p className="text-white text-[11px] tracking-widest uppercase">support@brightique.com</p>
+          </div>
         </div>
       </div>
     </footer>

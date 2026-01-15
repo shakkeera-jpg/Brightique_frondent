@@ -1,16 +1,18 @@
 import { useNavigate } from "react-router-dom";
 
-
 export default function Video() {
-
   const navigate = useNavigate();
 
   const handleExplore = () => {
-    navigate("/products")}
+    navigate("/products");
+  };
+
   return (
-    <div className="Video relative">
+    <div className="relative w-full h-[85vh] overflow-hidden group">
+      {/* 1. THE VIDEO: Added a subtle zoom effect on hover & Dark Overlay */}
+      <div className="absolute inset-0 bg-black/40 z-10" /> {/* Professional Overlay */}
       <video
-        className="w-full h-[600px] object-cover"
+        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
         autoPlay
         loop
         muted
@@ -20,24 +22,47 @@ export default function Video() {
         <source src="https://www.whiteteak.com/media/customimages/homepage/video_banner_new_standard.mp4" type="video/mp4" />
       </video>
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-        <h2 className="text-white text-3xl md:text-5xl font-script drop-shadow-lg">
-          Illuminate Your Space With A Touch Of Luxury.
+      {/* 2. CONTENT AREA */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-20">
+        
+        {/* Subtitle / Eyebrow Text */}
+        <span className="text-[#c9a64e] uppercase tracking-[0.4em] text-xs mb-4 animate-pulse">
+          Exquisite Lighting
+        </span>
+
+        <h2 
+          className="text-white text-4xl md:text-7xl mb-6 max-w-4xl leading-tight"
+          style={{ fontFamily: "'Playfair Display', serif", fontWeight: 400 }}
+        >
+          Illuminate Your Space <br /> 
+          <span className="italic">With A Touch Of Luxury</span>
         </h2>
-        <div className="w-80 h-[2px] bg-white my-5 opacity-80 rounded-full"></div>
-        <p className="text-white text-lg md:text-xl font-light drop-shadow-md">
-    Explore our curated collection of lighting to transform your space.
-  </p>
 
+        {/* The Divider: More elegant and thin */}
+        <div className="w-24 h-[1px] bg-[#c9a64e] mb-8"></div>
 
+        <p className="text-white/90 text-sm md:text-lg font-light tracking-wide max-w-2xl mb-10 leading-relaxed uppercase">
+          Explore our curated collection of lighting <br /> designed to transform your world.
+        </p>
+
+        {/* 3. THE BUTTON: "Ghost" style with a gold hover fill */}
         <button
           onClick={handleExplore}
-          className="mt-6 bg-transparent border border-white text-white 
-                     hover:bg-white/20 transition-all duration-300 
-                     text-lg px-6 py-3 rounded-full shadow-lg"
+          className="relative overflow-hidden border border-white/50 text-white 
+                     px-10 py-4 tracking-[0.2em] uppercase text-xs font-bold
+                     transition-all duration-500 hover:border-[#c9a64e] hover:text-white
+                     before:absolute before:inset-0 before:bg-[#c9a64e] before:scale-x-0 
+                     before:origin-right before:transition-transform before:duration-500 
+                     hover:before:scale-x-100 hover:before:origin-left"
         >
-          Explore Now
+          <span className="relative z-10">Explore Collection</span>
         </button>
+
+        {/* 4. EXTRA FEATURE: Scroll Indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+            <span className="text-white/40 text-[10px] uppercase tracking-widest">Scroll</span>
+            <div className="w-[1px] h-12 bg-gradient-to-b from-[#c9a64e] to-transparent"></div>
+        </div>
       </div>
     </div>
   );

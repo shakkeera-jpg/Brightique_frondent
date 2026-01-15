@@ -1,5 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { base } from "../api/axios";
+import api from "../api/axios";
 import { AuthContext } from "../Context/UserContext";
 
 export const ShopContext = createContext();
@@ -7,31 +9,67 @@ export const ShopContext = createContext();
 export const ShopProvider = ({ children }) => {
   const { user } = useContext(AuthContext);
 
-  const [wishlist, setWishlist] = useState([]);
+ const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
-  const [orders, setOrders] = useState([]); 
-  const limit= 8;
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+const [pagination, setPagination] = useState({
+  next: null,
+  previous: null,
+  currentPage: 1,
+  totalPages: 1,
+});
+  const limit = 8;
+
   
-  
-  const fetchProducts = async () => {
-    try {
-      const res = await axios.get('https://brightique.onrender.com/products');
-      // const normalized = res.data.map((p) => ({
-      //   ...p,
-      //   stock: p.stock != null ? p.stock : p.quantity ?? 0,
-      // }));
-      setProducts(res.data);
-    } catch (err) {
-      console.log("Error fetching products:", err);
-    }
-  };
+
+  // PRODUCTS 
+  const fetchProducts = async ({
+  search = "",
+  category = "All",
+  sortOrder = "none",
+  url = `${base}products/`,
+} = {}) => {
+  try {
+    setLoading(true);
+
+    const res = await axios.get(url, {
+      params: {
+        search: search || undefined,
+        category: category !== "All" ? category : undefined,
+        ordering:
+          sortOrder === "lowToHigh"
+            ? "price"
+            : sortOrder === "highToLow"
+            ? "-price"
+            : undefined,
+      },
+    });
+
+    setProducts(res.data.products || res.data.results || []);
+    setPagination({
+      next: res.data.pagination?.next || null,
+      previous: res.data.pagination?.previous || null,
+      currentPage: res.data.pagination?.current_page || 1,
+      totalPages: res.data.pagination?.total_pages || 1,
+    });
+  } catch (err) {
+    console.error("Product fetch failed", err);
+    setError("Failed to load products");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  
+  //  USER DATA RESET 
   useEffect(() => {
     if (!user) {
       setWishlist([]);
@@ -40,211 +78,298 @@ export const ShopProvider = ({ children }) => {
     }
   }, [user]);
 
-
+  //  ORDERS 
   useEffect(() => {
   const loadOrders = async () => {
     if (!user) return;
 
     try {
-      if (user.role === "admin") {
-        // Admin: fetch all users and collect all orders
-        const res = await axios.get("https://brightique.onrender.com/users");
-        const allOrders = res.data.flatMap(u => u.orders || []);
-        setOrders(allOrders);
-      } else {
-        // Normal user: fetch only their orders
-        const res = await axios.get(`https://brightique.onrender.com/${user.id}`);
-        setOrders(res.data.orders || []);
-      }
+      const res = await api.get("orders/"); 
+      setOrders(res.data || []);
     } catch (err) {
-      console.error("Failed loading orders", err);
+      console.error("Failed loading orders:", err.response?.data || err);
     }
   };
 
   loadOrders();
 }, [user]);
 
-  
+  //  WISHLIST 
   useEffect(() => {
-    const loadUserData = async () => {
-      if (user) {
-        try {
-          const res = await axios.get(`https://brightique.onrender.com/users/${user.id}`);
-          setWishlist(res.data.wishlist || []);
-          setCart(res.data.cart || []);
-          setOrders(res.data.orders || []); 
-        } catch (err) {
-          console.error("Failed loading user data", err);
-        }
+    if (!user) {
+      setWishlist([]);
+      return;
+    }
+
+    const fetchWishlist = async () => {
+      try {
+        const res = await api.get("wishlist/");
+        setWishlist(res.data);
+      } catch (err) {
+        console.error("Wishlist fetch failed", err);
       }
     };
-    loadUserData();
+
+    fetchWishlist();
   }, [user]);
 
-  // Save user data to backend
-  const saveUserData = async (updatedFields) => {
-    if (!user) return;
-    try {
-      await axios.patch(`https://brightique.onrender.com/users/${user.id}`, updatedFields);
-    } catch (err) {
-      console.error("Failed saving user data", err);
-    }
-  };
+  //  ADD / REMOVE WISHLIST
+  const toggleWishlist = async (productId) => {
+  const alreadyInWishlist = isInWishlist(productId);
 
-  // Update product stock
-  const updateProductStock = async (productId, change) => {
-    setProducts((prev) =>
-      prev.map((p) =>
-        p.id === productId ? { ...p, stock: Math.max(0, (p.stock ?? 0) + change) } : p
-      )
-    );
-
-    try {
-      const productRes = await axios.get(`https://brightique.onrender.com/products/${productId}`);
-      const currentStock = productRes.data.stock ?? productRes.data.quantity ?? 0;
-      const newStock = Math.max(0, currentStock + change);
-
-      await axios.patch(`https://brightique.onrender.com/products/${productId}`, { stock: newStock });
-    } catch (err) {
-      console.error("Stock update failed", err);
-    }
-  };
-
-  // Cart actions
-  const addToCart = async (product) => {
-    if ((product.stock ?? 0) <= 0) return;
-
-    let updatedCart;
-    const existing = cart.find((item) => item.id === product.id);
-    if (existing) {
-      updatedCart = cart.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      );
-    } else {
-      updatedCart = [...cart, { ...product, quantity: 1 }];
-    }
-
-    setCart(updatedCart);
-    await saveUserData({ cart: updatedCart });
-    updateProductStock(product.id, -1);
-  };
-
-  const increaseQuantity = async (productId) => {
-    const product = products.find((p) => p.id === productId);
-    if (!product || product.stock <= 0) return;
-
-    const updatedCart = cart.map((item) =>
-      item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
-    );
-
-    setCart(updatedCart);
-    await saveUserData({ cart: updatedCart });
-    updateProductStock(productId, -1);
-  };
-
-  const decreaseQuantity = async (productId) => {
-    const cartItem = cart.find((i) => i.id === productId);
-    if (!cartItem) return;
-
-    const updatedCart = cart
-      .map((i) => (i.id === productId ? { ...i, quantity: i.quantity - 1 } : i))
-      .filter((i) => i.quantity > 0);
-
-    setCart(updatedCart);
-    await saveUserData({ cart: updatedCart });
-    updateProductStock(productId, 1);
-  };
-
-  const removeFromCart = async (productId) => {
-    const removedItem = cart.find((i) => i.id === productId);
-    if (!removedItem) return;
-
-    const updatedCart = cart.filter((i) => i.id !== productId);
-    setCart(updatedCart);
-    await saveUserData({ cart: updatedCart });
-    updateProductStock(productId, removedItem.quantity);
-  };
-
-  
-  const addToWishlist = async (product) => {
-    setWishlist((prev) => {
-      const exists = prev.find((item) => item.id === product.id);
-      if (!exists) {
-        const updatedWishlist = [...prev, product];
-        saveUserData({ wishlist: updatedWishlist });
-        return updatedWishlist;
-      }
-      return prev;
-    });
-  };
-
-  const removeFromWishlist = async (productId) => {
-    const updatedWishlist = wishlist.filter((item) => item.id !== productId);
-    setWishlist(updatedWishlist);
-    saveUserData({ wishlist: updatedWishlist });
-  };
-
-  const isOutOfStock = (productId) => {
-    const product = products.find((p) => p.id === productId);
-    return !product || (product.stock ?? 0) <= 0;
-  };
-
-  const addToCartFromWishlist = async (product) => {
-    if ((product.stock ?? 0) <= 0) return;
-
-    let updatedCart;
-    const existing = cart.find((item) => item.id === product.id);
-    if (existing) {
-      updatedCart = cart.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      );
-    } else {
-      updatedCart = [...cart, { ...product, quantity: 1 }];
-    }
-
-    setCart(updatedCart);
-    await saveUserData({ cart: updatedCart });
-    await updateProductStock(product.id, -1);
-  };
-
-  
-  const cancelOrder = async (orderId) => {
-  if (!user) return;
-
-  const confirmCancel = window.confirm("Are you sure you want to cancel this order?");
-  if (!confirmCancel) return;
+  // ✅ OPTIMISTIC UPDATE (instant UI)
+  setWishlist(prev =>
+    alreadyInWishlist
+      ? prev.filter(item => item.product.id !== productId)
+      : [...prev, { product: { id: productId } }]
+  );
 
   try {
-    const res = await axios.get(`https://brightique.onrender.com/${user.id}`);
-    const orders = res.data.orders || [];
+    await api.post("wishlist/", { product_id: productId });
+  } catch (err) {
+    console.error("Wishlist toggle failed", err);
 
-    const updatedOrders = orders.map(order =>
-      order.id === orderId ? { ...order, status: "Cancelled" } : order
+    
+    setWishlist(prev =>
+      alreadyInWishlist
+        ? [...prev, { product: { id: productId } }]
+        : prev.filter(item => item.product.id !== productId)
+    );
+  }
+};
+
+  
+  const isInWishlist = (productId) =>
+  wishlist.some(item => item.product.id === productId);
+
+  //  CART ACTIONS 
+  const saveCart = async (updatedCart) => {
+    if (!user) return;
+    try {
+      await axios.patch(
+        `${base}users/${user.id}/`,
+        { cart: updatedCart },
+        { headers: { Authorization: `Bearer ${user.token}` } }
+      );
+    } catch (err) {
+      console.error("Failed saving cart:", err);
+    }
+  };
+
+  
+  const loadCart = async () => {
+  if (!user) return;
+
+  try {
+    const res = await api.get("cart/");
+    setCart(res.data.items || []);
+  } catch (err) {
+    console.error("Cart load failed", err);
+  }
+};
+
+useEffect(() => {
+  loadCart();
+}, [user]);
+
+const addToCart = async (product) => {
+  
+  setCart(prev => {
+    const existing = prev.find(
+      item => item.product.id === product.id
     );
 
-    
-    await axios.patch(`https://brightique.onrender.com/${user.id}`, {
-      orders: updatedOrders
+    if (existing) {
+      return prev.map(item =>
+        item.product.id === product.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+    }
+
+    return [
+      ...prev,
+      {
+        id: Date.now(),   
+        product,          
+        quantity: 1,
+      },
+    ];
+  });
+
+  try {
+    await api.post("cart/add/", {
+      product_id: product.id,
     });
-
-    
-    setOrders(updatedOrders);
-
-    alert("Your order was cancelled ");
   } catch (err) {
-    console.error("Failed to cancel order", err);
-    alert("Failed to cancel the order ");
+    console.error("Add to cart failed", err);
+    loadCart(); 
   }
 };
 
 
 
+const increaseQuantity = async (cartItemId) => {
+  const item = cart.find(i => i.id === cartItemId);
+  if (!item) return;
+
+  const stock = getProductStock(item.product.id);
+
+  
+  if (item.quantity >= stock) {
+    console.warn("Stock limit reached");
+    return;
+  }
+
+  
+  setCart(prev =>
+    prev.map(i =>
+      i.id === cartItemId
+        ? { ...i, quantity: i.quantity + 1 }
+        : i
+    )
+  );
+
+  
+  try {
+    await api.patch(`cart/update/${cartItemId}/`, {
+      quantity: item.quantity + 1,
+    });
+  } catch (err) {
+    console.error("Increase qty failed", err);
+  }
+};
+
+const getProductStock = (productId) => {
+  const product = products.find(p => p.id === productId);
+  return product?.stock ?? 0;
+};
+
+
+const decreaseQuantity = async (cartItemId) => {
+  setCart(prev =>
+    prev.map(item =>
+      item.id === cartItemId && item.quantity > 1
+        ? { ...item, quantity: item.quantity - 1 }
+        : item
+    )
+  );
+
+  try {
+    await api.patch(`cart/update/${cartItemId}/`, {
+      action: "decrease",
+    });
+  } catch (err) {
+    console.error("Decrease qty failed", err);
+  }
+};
+
+
+
+const removeFromCart = async (cartItemId) => {
+  
+  const previousCart = cart;
+
+  setCart(prev => prev.filter(item => item.id !== cartItemId));
+
+  try {
+    await api.delete(`cart/remove/${cartItemId}/`);
+  } catch (err) {
+    console.error("Remove cart failed", err);
+
+    
+    setCart(previousCart);
+  }
+};
+
+
+  
+const getCartQuantity = (productId) => {
+  const item = cart.find(i => i.product.id === productId);
+  return item?.quantity ?? 0;
+};
+
+const isOutOfStock = (productId) => {
+  return getCartQuantity(productId) >= getProductStock(productId);
+};
+
+
+  const addToCartFromWishlist = async (product) => {
+  try {
+    await api.post("cart/add/", {
+      product_id: product.id,
+    });
+
+    await removeFromWishlist(product.id);
+
+    await Promise.all([
+      loadCart(),
+      fetchProducts(), 
+    ]);
+  } catch (err) {
+    console.error("Add to cart from wishlist failed", err.response?.data || err);
+  }
+};
+
+
+const isInCart = (productId) => {
+  return cart.some(
+    (item) => item.product.id === productId
+  );
+};
+
+const fetchCart = async () => {
+  try {
+    const res = await api.get("cart/");
+    setCart(res.data.items || []);
+  } catch (err) {
+    console.error("Failed to fetch cart", err);
+  }
+};
+
+
+  //  CANCEL ORDER 
+  const cancelOrder = async (orderId) => {
+  try {
+    const res = await axios.post(
+      `${base}orders/${orderId}/cancel/`,
+      {},
+      { headers: { Authorization: `Bearer ${localStorage.getItem("access")}` } }
+    );
+    // Update local orders state
+    setOrders(prevOrders =>
+      prevOrders.map(order =>
+        order.id === orderId ? { ...order, status: res.data.status } : order
+      )
+    );
+  } catch (err) {
+    console.error("Cancel order failed:", err);
+  }
+};
+
+  const removeFromWishlist = async (productId) => {
+  try {
+    const res = await api.post("wishlist/", {
+      product_id: productId,
+    });
+
+    if (res.data.removed) {
+      setWishlist((prev) =>
+        prev.filter((item) => item.product.id !== productId)
+      );
+    }
+  } catch (err) {
+    console.error("Remove wishlist failed", err);
+  }
+};
+
   return (
     <ShopContext.Provider
       value={{
         wishlist,
-        addToWishlist,
         removeFromWishlist,
+        toggleWishlist,
+        isInWishlist,
         cart,
         addToCart,
         removeFromCart,
@@ -252,13 +377,16 @@ export const ShopProvider = ({ children }) => {
         increaseQuantity,
         products,
         isOutOfStock,
-        updateProductStock,
         setCart,
         addToCartFromWishlist,
         orders,
         setOrders,
         cancelOrder,
         limit,
+        isInCart,
+        fetchCart,
+        getProductStock
+        
       }}
     >
       {children}

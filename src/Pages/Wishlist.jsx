@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ShopContext } from "../Context/ShopContext";
-import { TrashIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { TrashIcon, ShoppingCartIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
 export default function Wishlist() {
@@ -11,105 +11,117 @@ export default function Wishlist() {
     isOutOfStock,
   } = useContext(ShopContext);
 
+  const goldClassic = "#AF8F42";
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-white py-8 px-4 mt-20">
-      <div className="container mx-auto max-w-6xl">
+    <div className="min-h-screen bg-[#FCFCFC] pt-22 pb-20 px-6">
+      <div className="container mx-auto max-w-7xl">
         
-        <div className="text-center mb-10">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent mb-3 font-serif">
-            My Wishlist
+        {/* Header Section */}
+        <div className="flex flex-col items-center mb-20">
+          <span className="text-[10px] uppercase tracking-[0.5em] text-[#AF8F42] font-bold mb-4">
+            Curated Collection
+          </span>
+          <h1 
+            className="text-4xl md:text-5xl font-light text-gray-900 italic"
+            style={{ fontFamily: "'Playfair Display', serif" }}
+          >
+            Saved Pieces
           </h1>
-          <div className="w-20 h-0.5 bg-gradient-to-r from-yellow-500 to-yellow-300 mx-auto rounded-full mb-4"></div>
-          <p className="text-yellow-700/80 text-sm">
-            {wishlist.length} {wishlist.length === 1 ? 'item' : 'items'} saved
+          <div className="w-12 h-[1px] bg-[#AF8F42] mt-6 mb-4"></div>
+          <p className="text-[10px] uppercase tracking-widest text-gray-400 font-medium">
+            {wishlist.length} {wishlist.length === 1 ? 'Masterpiece' : 'Pieces'} in your gallery
           </p>
         </div>
 
         {wishlist.length === 0 ? (
-          
-          <div className="text-center py-12">
-            <div className="max-w-md mx-auto">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-yellow-600 flex items-center justify-center shadow-sm">
-                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-yellow-900 mb-3">Your Wishlist is Empty</h3>
-              <p className="text-yellow-700/70 mb-6 text-sm">
-                Start exploring and add items you love
-              </p>
-              <Link
-                to="/products"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-400 hover:to-yellow-300 text-yellow-900 font-medium px-6 py-2.5 rounded-lg transition-all duration-300 shadow-md hover:shadow-yellow-500/20 text-sm"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                Explore Products
-              </Link>
+          /* Empty State: Boutique Style */
+          <div className="flex flex-col items-center justify-center py-20 text-center">
+            <div className="w-20 h-20 mb-8 border border-gray-100 flex items-center justify-center rounded-full bg-white shadow-sm">
+              <svg className="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
             </div>
+            <h3 className="text-xl font-light text-gray-900 mb-4 tracking-tight italic" style={{ fontFamily: "'Playfair Display', serif" }}>
+              Your gallery is empty
+            </h3>
+            <Link
+              to="/products"
+              className="group flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] font-bold text-[#AF8F42] border-b border-transparent hover:border-[#AF8F42] pb-1 transition-all"
+            >
+              Discover Lighting <ArrowRightIcon className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
         ) : (
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {wishlist.map((item) => (
-              <div
-                key={item.id}
-                className="group bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-yellow-100 hover:border-yellow-200 overflow-hidden"
-              >
-                
-                <div className="relative overflow-hidden bg-yellow-50">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  
-                  
-                  {isOutOfStock(item.id) && (
-                    <div className="absolute top-2 right-2 bg-yellow-600 text-white px-2 py-1 rounded text-xs font-medium shadow-sm">
-                      Out of Stock
-                    </div>
-                  )}
-                </div>
-
-                
-                <div className="p-4">
-                  <h2 className="text-sm font-semibold text-yellow-900 mb-2 line-clamp-2 group-hover:text-yellow-700 transition-colors duration-300 leading-tight">
-                    {item.name}
-                  </h2>
-                  <p className="text-lg font-bold text-yellow-600 mb-3">
-                    ₹{item.price}
-                  </p>
-
-                  
-                  <div className="flex items-center justify-between gap-2">
+          /* Wishlist Grid */
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
+            {wishlist.map((item) => {
+              const outOfStock = isOutOfStock(item.product.id);
+              
+              return (
+                <div
+                  key={item.product.id}
+                  className="group flex flex-col"
+                >
+                  {/* Image Container */}
+                  <div className="relative aspect-[4/5] overflow-hidden bg-[#F7F7F7] border border-gray-50 mb-6">
+                    <img
+                      src={item.product.image}
+                      alt={item.product.name}
+                      className={`w-full h-full object-contain mix-blend-multiply transition-transform duration-1000 group-hover:scale-110 ${outOfStock ? 'opacity-40 grayscale' : ''}`}
+                    />
                     
-                    <button
-                      onClick={() => addToCartFromWishlist(item)}
-                      disabled={isOutOfStock(item.id)}
-                      className={`flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded-lg font-medium transition-all duration-300 text-sm ${
-                        isOutOfStock(item.id)
-                          ? "bg-yellow-100 text-yellow-400 cursor-not-allowed border border-yellow-200"
-                          : "bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-400 hover:to-yellow-300 text-white shadow-sm hover:shadow-md"
-                      }`}
-                    >
-                      <ShoppingCartIcon className="w-4 h-4" />
-                      {isOutOfStock(item.id) ? "Out of Stock" : "Add to Cart"}
-                    </button>
+                    {outOfStock && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="bg-white/90 backdrop-blur-md text-[8px] uppercase tracking-[0.4em] px-4 py-2 font-bold text-gray-400 border border-gray-100 shadow-sm">
+                          Archived
+                        </span>
+                      </div>
+                    )}
 
-                    
+                    {/* Quick Remove Top-Right */}
                     <button
-                      onClick={() => removeFromWishlist(item.id)}
-                      className="p-2 bg-yellow-50 hover:bg-yellow-100 text-yellow-600 hover:text-yellow-700 rounded-lg border border-yellow-200 transition-all duration-300"
-                      title="Remove from wishlist"
+                      onClick={() => removeFromWishlist(item.product.id)}
+                      className="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-md text-gray-400 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
                     >
                       <TrashIcon className="w-4 h-4" />
                     </button>
                   </div>
+
+                  {/* Info Section */}
+                  <div className="flex flex-col flex-1">
+                    <h2 className="text-[11px] uppercase tracking-[0.2em] font-bold text-gray-900 mb-2 line-clamp-1">
+                      {item.product.name}
+                    </h2>
+                    <p className="text-sm font-light text-[#AF8F42] mb-6 tracking-tight">
+                      ₹{item.product.price.toLocaleString()}
+                    </p>
+
+                    {/* Actions Row */}
+                    <div className="mt-auto pt-4 border-t border-gray-50 flex gap-2">
+                      <button
+                        onClick={() => addToCartFromWishlist(item.product)}
+                        disabled={outOfStock}
+                        className={`flex-1 h-11 text-[9px] uppercase tracking-[0.2em] font-bold transition-all
+                          ${outOfStock
+                            ? "bg-gray-50 text-gray-300 cursor-not-allowed"
+                            : "bg-black text-white hover:bg-[#AF8F42] active:scale-95"
+                          }`}
+                      >
+                        {outOfStock ? "Out of Stock" : "Acquire Piece"}
+                      </button>
+                      
+                      <Link 
+                        to={`/product/${item.product.id}`}
+                        className="w-11 h-11 border border-gray-100 flex items-center justify-center text-gray-400 hover:text-black hover:border-black transition-all"
+                      >
+                         <ArrowRightIcon className="w-4 h-4 -rotate-45" />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
