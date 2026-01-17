@@ -8,7 +8,7 @@ import Products from './Pages/Products'
 import Cart from "./Pages/Cart";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
-import ProductCard from './Pages/ProductCard.jsx';
+import ProductCard from "./Pages/Productcard.jsx";
 import Wishlist from "./Pages/Wishlist";
 import Checkout from "./Pages/CheckOut";
 import OrderConfirmed from "./Pages/OrderConfirmed";

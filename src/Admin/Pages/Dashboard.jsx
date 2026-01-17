@@ -48,7 +48,7 @@ export default function Dashboard() {
   if (!dashboard) return null;
 
   const stats = [
-    { label: "Gross Revenue", value: `${dashboard.total_revenue.toLocaleString()}`, trend: "Global Portfolio", icon: "Balance" },
+    { label: "Gross Revenue", value: `₹${dashboard.total_revenue.toLocaleString()}`, trend: "Global Portfolio", icon: "Balance" },
     { label: "Boutique Assets", value: dashboard.total_products, trend: "Inventory Count", icon: "Store" },
     { label: "Order Volume", value: dashboard.total_orders, trend: "Client Requests", icon: "List" },
     { label: "Member Base", value: dashboard.total_users, trend: "Total Registrations", icon: "Users" },
@@ -83,7 +83,7 @@ export default function Dashboard() {
           {stats.map((item, index) => (
             <div key={index} className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm transition-transform hover:-translate-y-1">
               <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-1">{item.label}</p>
-              <p className="text-2xl font-bold text-gray-900 mb-2">{`₹${item.value}`}</p>
+              <p className="text-2xl font-bold text-gray-900 mb-2">{`${item.value}`}</p>
               <div className="h-[1px] w-8 bg-[#AF8F42] mb-2"></div>
               <p className="text-[9px] text-gray-400 italic tracking-wider">{item.trend}</p>
             </div>

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api/axios";
 import { ShopContext } from "../Context/ShopContext";
 import { AuthContext } from "../Context/UserContext";
 
@@ -16,7 +16,7 @@ export default function CheckOut() {
     country: "",
     paymentMethod: "cod",
   });
-   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false);
 
   const { cart, fetchCart } = useContext(ShopContext);
   const { user, Authloading } = useContext(AuthContext);
@@ -68,10 +68,10 @@ export default function CheckOut() {
   );
 
   useEffect(() => {
-  if (!orderPlaced && (!cart || cart.length === 0)) {
-    navigate("/products", { replace: true });
-  }
-}, [cart, orderPlaced, navigate]);
+    if (!orderPlaced && (!cart || cart.length === 0)) {
+      navigate("/products", { replace: true });
+    }
+  }, [cart, orderPlaced, navigate]);
 
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
@@ -79,39 +79,25 @@ export default function CheckOut() {
 
     try {
       setLoadingOrder(true);
-      const res = await axios.post(
-        "http://127.0.0.1:8000/api/create-order/",
-        {
-          amount: totalAmount,
-          payment_method: formData.paymentMethod,
-          name: formData.name,
-          phone: formData.phone,
-          street: formData.street,
-          city: formData.city,
-          state: formData.state,
-          zip: formData.zip,
-          country: formData.country,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access")}`,
-          },
-        }
-      );
+      const res = await api.post("/create-order/", {
+        amount: totalAmount,
+        payment_method: formData.paymentMethod,
+        name: formData.name,
+        phone: formData.phone,
+        street: formData.street,
+        city: formData.city,
+        state: formData.state,
+        zip: formData.zip,
+        country: formData.country,
+      });
 
       if (formData.paymentMethod === "cod") {
         setOrderPlaced(true);
-        await axios.post(
-          `http://127.0.0.1:8000/api/confirm-cod/${res.data.order_id}/`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("access")}`,
-            },
-          }
-        );
+
+        await api.post(`/confirm-cod/${res.data.order_id}/`);
+
         await fetchCart();
-        navigate(`/order-confirmation/${res.data.order_id}`,{ replace: true });
+        navigate(`/order-confirmation/${res.data.order_id}`, { replace: true });
         return;
       }
 
@@ -122,34 +108,25 @@ export default function CheckOut() {
         order_id: razorpay_order_id,
 
         handler: async function (response) {
-         
+
           try {
             setOrderPlaced(true);
-            const verifyRes = await axios.post(
-              "http://127.0.0.1:8000/api/verify-payment/",
-              {
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_signature: response.razorpay_signature,
-
-                
-                name: formData.name,
-                phone: formData.phone,
-                street: formData.street,
-                city: formData.city,
-                state: formData.state,
-                zip: formData.zip,
-                country: formData.country,
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("access")}`,
-                },
-              }
-            );
+            const verifyRes = await api.post("/verify-payment/", {
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+              amount: totalAmount * 100,
+              name: formData.name,
+              phone: formData.phone,
+              street: formData.street,
+              city: formData.city,
+              state: formData.state,
+              zip: formData.zip,
+              country: formData.country,
+            });
 
             await fetchCart();
-            navigate(`/order-confirmation/${verifyRes.data.order_id}`,{ replace: true });
+            navigate(`/order-confirmation/${verifyRes.data.order_id}`, { replace: true });
           } catch (err) {
             alert(err.response?.data?.error || "Payment verification failed");
           } finally {
@@ -159,7 +136,7 @@ export default function CheckOut() {
 
         modal: {
           ondismiss: function () {
-            
+
             console.log("Payment popup closed by user");
             setLoadingOrder(false);
           }
@@ -198,7 +175,7 @@ export default function CheckOut() {
     <div className="min-h-screen bg-[#FCFCFC] pt-32 pb-20 px-6 sm:px-10">
       <div className="max-w-6xl mx-auto">
 
-        
+
         <div className="mb-16 border-b border-gray-100 pb-10">
           <span className="text-[10px] uppercase tracking-[0.4em] text-[#AF8F42] font-bold mb-3 block">
             Final Step
@@ -213,11 +190,11 @@ export default function CheckOut() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
 
-          
+
           <div className="lg:col-span-7">
             <form onSubmit={handlePlaceOrder} className="space-y-16">
 
-             
+
               <section>
                 <div className="flex items-center gap-4 mb-10">
                   <span className="text-[10px] w-6 h-6 border border-gray-300 flex items-center justify-center rounded-full text-gray-400 font-bold">1</span>
@@ -242,7 +219,7 @@ export default function CheckOut() {
                 </div>
               </section>
 
-              
+
               <section>
                 <div className="flex items-center gap-4 mb-10">
                   <span className="text-[10px] w-6 h-6 border border-gray-300 flex items-center justify-center rounded-full text-gray-400 font-bold">2</span>
@@ -275,7 +252,7 @@ export default function CheckOut() {
             </form>
           </div>
 
-          
+
           <div className="lg:col-span-5">
             <div className="bg-white border border-gray-100 p-8 sticky top-32">
               <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-900 mb-8 border-b border-gray-50 pb-4">
@@ -312,7 +289,7 @@ export default function CheckOut() {
                 </div>
               </div>
 
-              
+
               <div className="mt-8 flex items-center justify-center gap-2 opacity-30 grayscale">
                 <div className="w-1 h-1 bg-black rounded-full"></div>
                 <span className="text-[8px] uppercase tracking-[0.3em] font-bold">Secure Global Fulfillment</span>

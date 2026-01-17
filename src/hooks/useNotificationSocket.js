@@ -14,7 +14,7 @@ export default function useNotificationSocket(token) {
     }
 
     const ws = new WebSocket(
-      `ws://127.0.0.1:8000/ws/notifications/?token=${token}`
+      `ws://13.49.68.75/ws/notifications/?token=${token}`
     );
 
     socketRef.current = ws;

@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../Context/UserContext";
 import { GoogleLogin } from "@react-oauth/google";
-import axios from "axios";
+import api from "../api/axios";
 
 export default function Login() {
   const { login, googleLogin,user,Authloading } = useContext(AuthContext);
@@ -47,7 +47,7 @@ export default function Login() {
     try {
       setLoading(true);
       setError("");
-      const res = await axios.post("http://127.0.0.1:8000/api/auth/google/", {
+      const res = await api.post("/auth/google/", {
         token: credentialResponse.credential,
       });
       googleLogin(res.data);
