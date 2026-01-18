@@ -14,7 +14,7 @@ export default function useNotificationSocket(token) {
     }
 
     const ws = new WebSocket(
-      `ws://13.49.68.75/ws/notifications/?token=${token}`
+      `wss://13.49.68.75.sslip.io/ws/notifications/?token=${token}`
     );
 
     socketRef.current = ws;
