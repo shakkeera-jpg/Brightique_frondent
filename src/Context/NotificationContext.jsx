@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState,useCallback } from "react";
 import { AuthContext } from "./UserContext";
 import api from "../api/axios";
 
@@ -15,20 +15,19 @@ export const NotificationProvider = ({ children }) => {
     setUnread(0);
   };
 
- const addNotification = (notification) => {
+ const addNotification = useCallback((notification) => {
   if (!notification || !notification.id) return;
 
   setNotifications(prev => {
     const exists = prev.some(n => n.id === notification.id);
     if (exists) return prev;
-
     return [notification, ...prev];
   });
 
   if (!notification.is_read) {
     setUnread(prev => prev + 1);
   }
-};
+}, []);
 
 
 

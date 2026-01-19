@@ -20,13 +20,9 @@ export default function useNotificationSocket(token) {
     socketRef.current = ws;
 
     ws.onmessage = (event) => {
-  const data = JSON.parse(event.data);
-
-  
-  if (!data.id) return;
-
-  addNotification(data);
-};
+    const data = JSON.parse(event.data);
+    addNotification(data); 
+  };
 
     ws.onerror = () => ws.close();
 
@@ -34,5 +30,5 @@ export default function useNotificationSocket(token) {
       ws.close();
       socketRef.current = null;
     };
-  }, [token]);
+  }, [token,addNotification]);
 }
