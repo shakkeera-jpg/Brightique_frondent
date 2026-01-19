@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import { BrowserRouter } from 'react-router-dom';
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { NotificationProvider } from "./Context/NotificationContext.jsx";
+import * as Sentry from "@sentry/react";
 
 
 Sentry.init({
