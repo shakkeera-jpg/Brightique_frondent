@@ -1,3 +1,7 @@
+import { useState } from "react"; 
+import { BellIcon } from "@heroicons/react/24/outline";
+import { useNotifications } from "../Context/NotificationContext";
+
 export default function NotificationBell() {
   const [open, setOpen] = useState(false);
   const { notifications, unread, markAllRead } = useNotifications();
