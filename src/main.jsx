@@ -10,6 +10,19 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { NotificationProvider } from "./Context/NotificationContext.jsx";
 
 
+Sentry.init({
+  dsn: import.meta.env.VITE_SENTRY_DSN, 
+  integrations: [
+    Sentry.browserTracingIntegration(),
+    Sentry.replayIntegration(),
+  ],
+  
+  tracesSampleRate: 1.0, 
+  
+  replaysSessionSampleRate: 0.1, 
+  replaysOnErrorSampleRate: 1.0, 
+});
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
